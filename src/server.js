@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 
 const authRoutes = require('./routes/authRouter');
+const userRoutes = require('./routes/api/users');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -16,9 +17,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use('/api/auth', authRoutes);
+app.use('/api/profile/me', userRoutes);
 
 app.use((req, res) => {
-  res.status(404).json({ message:'Page not found' });
+  res.status(404).json({ message: 'Page not found' });
 });
 
 

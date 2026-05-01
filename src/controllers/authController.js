@@ -14,10 +14,10 @@ const createToken = (id) => {
 
 const signUp = async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { firstname, lastname, username, email, password } = req.body;
 
- 
-    if (!username || !email || !password) {
+
+    if (!firstname || !lastname || !username || !email || !password) {
       return res.status(400).json({ msg: 'All fields are required' });
     }
 
@@ -28,7 +28,7 @@ const signUp = async (req, res) => {
     }
 
 
-    const newUser = await User.create({ username, email, password });
+    const newUser = await User.create({ firstname, lastname, username, email, password });
 
     res.status(201).json({
       status: 201,
@@ -50,7 +50,7 @@ const signIn = async (req, res) => {
     if (!user) {
       return res.status(400).json({ msg: 'Invalid email or password' });
     }
- console.log('password in db:', user.password);
+    console.log('password in db:', user.password);
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ msg: 'Invalid email or password' });
@@ -60,6 +60,7 @@ const signIn = async (req, res) => {
 
     res.cookie('token', token, {
       httpOnly: true,
+      sameSite: 'strict',
       maxAge: maxAge * 1000,
     });
 
@@ -73,4 +74,4 @@ const signIn = async (req, res) => {
   }
 };
 
-module.exports = { signUp, signIn};
+module.exports = { signUp, signIn };
