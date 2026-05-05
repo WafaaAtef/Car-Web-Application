@@ -5,8 +5,8 @@ const User = require('../models/User');
 
 const maxAge = 60 * 60;
 
-const createToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
+const createToken = (id, role) => {
+  return jwt.sign({ id, role }, process.env.JWT_SECRET, {
     expiresIn: maxAge,
   });
 };
@@ -56,7 +56,7 @@ const signIn = async (req, res) => {
       return res.status(400).json({ msg: 'Invalid email or password' });
     }
 
-    const token = createToken(user._id);
+    const token = createToken(user._id, user.role);
 
     res.cookie('token', token, {
       httpOnly: true,
