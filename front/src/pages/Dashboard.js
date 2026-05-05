@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import CarCard from "../components/CarCards";
+import { useNavigate } from "react-router-dom";
 
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=Barlow:wght@300;400;500&display=swap');
@@ -182,9 +183,27 @@ const styles = `
 `;
 
 function Dashboard() {
+  const navigate = useNavigate();
+
   const [cars, setCars] = useState([]);
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("");
+
+  const [user, setUser] = useState(null);
+
+  const fetchUser = async () => {
+    const res = await fetch("/api/user", {
+      credentials: "include",
+    });
+    if (res.status === 401) {
+      setUser(null);
+    }
+    else {
+      const data = await res.json();
+      setUser(data);
+    }
+
+  };
 
   const fetchCars = async (query = "") => {
     const res = await fetch(`/api/cars${query}`);
@@ -192,7 +211,7 @@ function Dashboard() {
     setCars(data);
   };
 
-  useEffect(() => { fetchCars(); }, []);
+  useEffect(() => { fetchCars(); fetchUser(); }, []);
 
   const handleSearch = (e) => {
     const value = e.target.value;
@@ -207,6 +226,8 @@ function Dashboard() {
     else if (value === "year") fetchCars(`?sortBy=year&order=desc`);
     else fetchCars();
   };
+
+
 
   const avgPrice = cars.length
     ? Math.round(cars.reduce((s, c) => s + Number(c.price), 0) / cars.length).toLocaleString("en-EG")
@@ -223,8 +244,8 @@ function Dashboard() {
           <div className="dash-controls">
             <div className="search-wrap">
               <svg className="search-icon" width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <circle cx="6" cy="6" r="4.5" stroke="white" strokeWidth="1.2"/>
-                <path d="M10 10L13 13" stroke="white" strokeWidth="1.2" strokeLinecap="round"/>
+                <circle cx="6" cy="6" r="4.5" stroke="white" strokeWidth="1.2" />
+                <path d="M10 10L13 13" stroke="white" strokeWidth="1.2" strokeLinecap="round" />
               </svg>
               <input
                 className="dash-search"
@@ -239,6 +260,25 @@ function Dashboard() {
               <option value="price">Price — Low to High</option>
               <option value="year">Year — New to Old</option>
             </select>
+            {user && (
+              <button
+                onClick={() => navigate("/profile")}
+                style={{
+                  background: "rgba(196,164,96,0.2)",
+                  border: "1px solid rgba(196,164,96,0.5)",
+                  color: "#c4a460",
+                  padding: "8px 12px",
+                  cursor: "pointer",
+                  fontWeight: "600",
+                  letterSpacing: "1px",
+                  textTransform: "uppercase",
+                  fontSize: "11px",
+                  borderRadius: "2px",
+                }}
+              >
+                Profile
+              </button>
+            )}
           </div>
         </header>
 

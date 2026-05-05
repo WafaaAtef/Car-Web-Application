@@ -31,12 +31,17 @@ const userSchema = new mongoose.Schema({
   },
   phone: {
     type: String,
-    trim: true
+    trim: true,
+    default: null
   },
   role: {
     type: String,
     enum: ['buyer', 'admin'],
     default: 'admin'
+  },
+  profileImage: {
+    type: String,
+    default: null
   }
 }, { timestamps: true });
 

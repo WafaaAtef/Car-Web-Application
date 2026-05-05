@@ -14,6 +14,7 @@ const carRoutes = require('./routes/api/cars');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use("/uploads", express.static("uploads"));
 app.use(cors({
   origin: 'http://localhost:3000',
   credentials: true,
@@ -26,7 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use('/api/auth', authRoutes);
-app.use('/api/profile/me', userRoutes);
+app.use('/api/user', userRoutes);
 app.use('/api/cars', carRoutes);
 
 app.use((req, res) => {

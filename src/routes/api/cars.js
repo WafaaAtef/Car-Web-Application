@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Car = require("../../models/Cars");
 const { auth, isAdmin } = require('../../middleWares/authMiddleware');
-const upload = require('../../middleWares/uploadMiddleware');
+const { upload } = require('../../middleWares/uploadMidd');
 
 // GET /api/cars
 router.get("/", async (req, res) => {

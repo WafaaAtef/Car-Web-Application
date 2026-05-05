@@ -9,7 +9,7 @@ const get_user = async (req, res) => {
         const user_id = decoded.id;
         const user = await User.findById(user_id);
 
-        return res.status(200).json({ id: user._id, firstname: user.firstname, lastname: user.lastname, username: user.username, email: user.email, phone: user.phone });
+        return res.status(200).json({ id: user._id, firstname: user.firstname, lastname: user.lastname, username: user.username, email: user.email, phone: user.phone, profileImage: user.profileImage });
 };
 
 const delete_user = async (req, res) => {
@@ -17,8 +17,14 @@ const delete_user = async (req, res) => {
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const user_id = decoded.id;
-        const user = await User.findByIdAndDelete(user_id);
+        const { old_password } = req.body;
+        const user = await User.findById(user_id);
 
+        const r = await bcrypt.compare(old_password, user.password);
+        if (!r) {
+                return res.status(400).json({ message: "Wrong password" });
+        }
+        const deletedUser = await User.findByIdAndDelete(user_id);
         res.clearCookie('token');
 
         return res.status(200).json({ message: "User deleted successfully" });
@@ -32,7 +38,7 @@ const update_email = async (req, res) => {
         const user = await User.findById(user_id);
         const r = await bcrypt.compare(password, user.password);
         if (!r) {
-                return res.status(401).json({ message: "Wrong password" });
+                return res.status(400).json({ message: "Wrong password" });
         }
         const email_exists = await User.findOne({ email: email });
         if (email_exists) {
@@ -59,7 +65,7 @@ const update_password = async (req, res) => {
 
         const r = await bcrypt.compare(old_password, user.password);
         if (!r) {
-                return res.status(401).json({ message: "Wrong password" });
+                return res.status(400).json({ message: "Wrong password" });
         }
         user.password = new_password;
         await user.save();
@@ -79,7 +85,39 @@ const update_user = async (req, res) => {
         return res.status(200).json({ firstname: user.firstname, lastname: user.lastname, username: user.username, email: user.email, phone: user.phone });
 
 };
+const update_profile_image = async (req, res) => {
+
+        const token = req.cookies.token;
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const user_id = decoded.id;
+
+        const user = await User.findById(user_id);
+
+        if (!req.file) {
+                return res.status(400).json({ message: "No image uploaded" });
+        }
+
+        user.profileImage = `/uploads/profile_photo/${req.file.filename}`;
+        await user.save();
+
+        return res.status(200).json({
+                message: "Profile image updated successfully",
+                image: user.profileImage
+        });
 
 
 
-module.exports = { get_user, delete_user, update_email, update_password, update_user };
+};
+
+const logout = (req, res) => {
+        res.clearCookie("token", {
+                httpOnly: true,
+                sameSite: "strict",
+                path: "/",
+        });
+
+        return res.status(200).json({ message: "Logged out successfully" });
+};
+
+
+module.exports = { get_user, delete_user, update_email, update_password, update_user, update_profile_image, logout };
