@@ -147,12 +147,12 @@ const styles = `
 }
 
 .flash.success {
-  background: #1f7a3a;
+  background: #c4a460;
   color: white;
 }
 
 .flash.error {
-  background: #b3261e;
+  background: #c4a460;
   color: white;
 }
 

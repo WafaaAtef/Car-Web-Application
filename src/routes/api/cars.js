@@ -25,7 +25,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-// POST /api/cars — مع upload صور
 router.post("/", auth, isAdmin, upload.array('images', 5), async (req, res) => {
   try {
     const imagesPaths = req.files?.map(f => `/uploads/${f.filename}`) || [];
@@ -42,7 +41,6 @@ router.post("/", auth, isAdmin, upload.array('images', 5), async (req, res) => {
   }
 });
 
-// PUT /api/cars/:id — مع upload صور
 router.put("/:id", auth, isAdmin, upload.array('images', 5), async (req, res) => {
   try {
     const existing = await Car.findById(req.params.id);
@@ -50,7 +48,6 @@ router.put("/:id", auth, isAdmin, upload.array('images', 5), async (req, res) =>
 
     const newImages = req.files?.map(f => `/uploads/${f.filename}`) || [];
 
-    // لو رفع صور جديدة هيضيفها على القديمة، لو مش رافع هيفضل القديمة
     const updatedImages = newImages.length > 0
       ? [...existing.images, ...newImages]
       : existing.images;
@@ -67,7 +64,6 @@ router.put("/:id", auth, isAdmin, upload.array('images', 5), async (req, res) =>
   }
 });
 
-// DELETE /api/cars/:id
 router.delete("/:id", auth, isAdmin, async (req, res) => {
   try {
     const car = await Car.findByIdAndDelete(req.params.id);

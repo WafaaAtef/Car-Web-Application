@@ -8,7 +8,7 @@ const styles = `
     background: #0d0d0f;
     border: 1px solid rgba(255,255,255,0.07);
     border-radius: 2px;
-    width: 300px;
+    width: 350px;
     overflow: hidden;
     transition: transform 0.3s ease, border-color 0.3s ease;
     position: relative;
@@ -180,14 +180,6 @@ function CarCard({ car, isAdmin, onDelete, onEdit }) {
                 {formatPrice(car.price)} <span style={{ fontSize: 11, fontWeight: 400 }}>EGP</span>
               </span>
             </div>
-          </div>
-
-          {/* Tags */}
-          <div className="car-meta">
-            {car.fuelType && <span className="car-tag">{car.fuelType}</span>}
-            {car.transmission && <span className="car-tag">{car.transmission}</span>}
-            {car.condition && <span className="car-tag">{car.condition}</span>}
-            {car.color && <span className="car-tag">{car.color}</span>}
           </div>
 
           {isAdmin && (

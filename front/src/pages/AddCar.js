@@ -230,7 +230,7 @@ function AddCar() {
               <div className="form-actions">
                 <button type="button" className="btn-cancel" onClick={() => navigate("/admin")}>Cancel</button>
                 <button type="submit" className="btn-submit" disabled={loading || success}>
-                  {loading ? "Saving..." : "Add to Showroom"}
+                  {loading ? "Saving..." : "Add to Dashboard"}
                 </button>
               </div>
 
