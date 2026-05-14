@@ -10,6 +10,7 @@ const cors = require('cors');
 const authRoutes = require('./routes/authRouter');
 const userRoutes = require('./routes/api/users');
 const carRoutes = require('./routes/api/cars');
+const requestRoutes = require('./routes/api/Request');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -29,6 +30,7 @@ app.use(cookieParser());
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/cars', carRoutes);
+app.use('/api/requests', requestRoutes);
 
 app.use((req, res) => {
   res.status(404).json({ message: 'Page not found' });

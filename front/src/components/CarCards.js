@@ -87,6 +87,13 @@ const styles = `
   }
 
   .car-admin-actions { display: flex; gap: 8px; margin-top: 16px; }
+  .btn-view {
+    width: 100%; background: rgba(196,164,96,0.1); border: 1px solid rgba(196,164,96,0.3);
+    color: #c4a460; font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+    padding: 9px 0; border-radius: 2px; cursor: pointer; transition: all 0.2s; margin-top: 16px;
+  }
+  .btn-view:hover { background: rgba(196,164,96,0.2); border-color: rgba(196,164,96,0.5); color: #e8d4a0; }
   .btn-edit {
     flex: 1; background: transparent; border: 1px solid rgba(255,255,255,0.15);
     color: rgba(255,255,255,0.7); font-family: 'Barlow Condensed', sans-serif;
@@ -103,7 +110,7 @@ const styles = `
   .btn-delete:hover { background: rgba(220,60,60,0.1); border-color: rgba(220,60,60,0.5); color: rgb(220,60,60); }
 `;
 
-function CarCard({ car, isAdmin, onDelete, onEdit }) {
+function CarCard({ car, isAdmin, onDelete, onEdit, onView }) {
   const [imgIndex, setImgIndex] = useState(0);
   const images = car.images || [];
 
@@ -181,6 +188,8 @@ function CarCard({ car, isAdmin, onDelete, onEdit }) {
               </span>
             </div>
           </div>
+
+          <button className="btn-view" onClick={() => onView(car)}>View Car</button>
 
           {isAdmin && (
             <div className="car-admin-actions">

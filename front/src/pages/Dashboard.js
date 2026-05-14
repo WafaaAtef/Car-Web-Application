@@ -104,7 +104,88 @@ const styles = `
     background-position: right 12px center;
   }
   .dash-select:focus { border-color: rgba(196,164,96,0.4); }
-  .dash-select option { background: #1a1a20; color: #e8e8e8; }
+  .dash-select option { 
+    font-family: 'Barlow Condensed', sans-serif;
+    background: #0a0a0b; 
+    color: #e8e8e8;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 8px 12px;
+  }
+  .dash-select option:hover {
+    background: #1a1a20;
+  }
+
+  .custom-dropdown {
+    position: relative;
+    width: 160px;
+  }
+  .custom-dropdown-toggle {
+    font-family: 'Barlow Condensed', sans-serif;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.7);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 10px 16px;
+    border-radius: 2px;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: border-color 0.2s ease;
+  }
+  .custom-dropdown-toggle:hover,
+  .custom-dropdown-toggle.active { 
+    border-color: rgba(196,164,96,0.4); 
+  }
+  .custom-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #0a0a0b;
+    border: 1px solid rgba(196,164,96,0.3);
+    border-top: none;
+    border-radius: 0 0 2px 2px;
+    margin-top: -1px;
+    z-index: 1000;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+  }
+  .custom-dropdown-item {
+    font-family: 'Barlow Condensed', sans-serif;
+    background: #0a0a0b;
+    color: rgba(255,255,255,0.7);
+    border: none;
+    padding: 10px 16px;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .custom-dropdown-item:last-child {
+    border-bottom: none;
+  }
+  .custom-dropdown-item:hover {
+    background: rgba(196,164,96,0.1);
+    color: #e8e8e8;
+    border-color: rgba(196,164,96,0.3);
+  }
+  .custom-dropdown-item.active {
+    background: rgba(196,164,96,0.2);
+    color: #c4a460;
+    border-left: 3px solid #c4a460;
+    padding-left: 13px;
+  }
 
   .dash-body {
     padding: 40px 48px;
@@ -188,6 +269,7 @@ function Dashboard() {
   const [cars, setCars] = useState([]);
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("");
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const [user, setUser] = useState(null);
 
@@ -213,18 +295,32 @@ function Dashboard() {
 
   useEffect(() => { fetchCars(); fetchUser(); }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownOpen && e.target.closest(".custom-dropdown") === null) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, [dropdownOpen]);
+
   const handleSearch = (e) => {
     const value = e.target.value;
     setSearch(value);
     fetchCars(`?search=${value}`);
   };
 
-  const handleSort = (e) => {
-    const value = e.target.value;
+  const handleSort = (value) => {
     setSort(value);
+    setDropdownOpen(false);
     if (value === "price") fetchCars(`?sortBy=price&order=asc`);
     else if (value === "year") fetchCars(`?sortBy=year&order=desc`);
     else fetchCars();
+  };
+
+  const handleView = (car) => {
+    navigate(`/cars/${car._id}`);
   };
 
 
@@ -255,11 +351,24 @@ function Dashboard() {
                 onChange={handleSearch}
               />
             </div>
-            <select className="dash-select" onChange={handleSort} value={sort}>
-              <option value="">Sort By</option>
-              <option value="price">Price — Low to High</option>
-              <option value="year">Year — New to Old</option>
-            </select>
+            <div className="custom-dropdown">
+              <button 
+                className={`custom-dropdown-toggle ${dropdownOpen ? "active" : ""}`}
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+              >
+                <span>{sort === "price" ? "Price — Low to High" : sort === "year" ? "Year — New to Old" : "Sort By"}</span>
+                <svg width="10" height="6" viewBox="0 0 10 6" fill="none">
+                  <path d="M1 1l4 4 4-4" stroke="rgba(255,255,255,0.3)" strokeWidth="1.5" strokeLinecap="round"/>
+                </svg>
+              </button>
+              {dropdownOpen && (
+                <div className="custom-dropdown-menu">
+                  <button className={`custom-dropdown-item ${sort === "" ? "active" : ""}`} onClick={() => handleSort("")}>Sort By</button>
+                  <button className={`custom-dropdown-item ${sort === "price" ? "active" : ""}`} onClick={() => handleSort("price")}>Price — Low to High</button>
+                  <button className={`custom-dropdown-item ${sort === "year" ? "active" : ""}`} onClick={() => handleSort("year")}>Year — New to Old</button>
+                </div>
+              )}
+            </div>
             {user && (
               <button
                 onClick={() => navigate("/profile")}
@@ -302,7 +411,7 @@ function Dashboard() {
 
           <div className="cars-grid">
             {cars.length > 0 ? (
-              cars.map((car) => <CarCard key={car._id} car={car} />)
+              cars.map((car) => <CarCard key={car._id} car={car} onView={handleView} />)
             ) : (
               <div className="empty-state">
                 <div className="empty-text">No vehicles found</div>

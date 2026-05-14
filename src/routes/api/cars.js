@@ -7,7 +7,7 @@ const { upload } = require('../../middleWares/uploadMidd');
 // GET /api/cars
 router.get("/", async (req, res) => {
   try {
-    const { search, sortBy, order } = req.query;
+    const { search, sortBy, request } = req.query;
     let query = {};
     if (search) {
       query.$or = [
@@ -16,10 +16,20 @@ router.get("/", async (req, res) => {
       ];
     }
     let sort = {};
-    if (sortBy) sort[sortBy] = order === "desc" ? -1 : 1;
+    if (sortBy) sort[sortBy] = request === "desc" ? -1 : 1;
 
     const cars = await Car.find(query).sort(sort);
     res.json(cars);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+router.get("/:id", async (req, res) => {
+  try {
+    const car = await Car.findById(req.params.id);
+    if (!car) return res.status(404).json({ message: "Car not found" });
+    res.json(car);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

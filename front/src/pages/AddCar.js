@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const styles = `
@@ -97,6 +97,23 @@ function AddCar() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+
+  const fetchUser = async () => {
+    const res = await fetch("/api/user", {
+      credentials: "include",
+    });
+    if (res.status === 401) {
+      navigate("/");
+      return;
+    }
+    const data = await res.json();
+    if (data.role !== 'admin') {
+      navigate("/");
+      return;
+    }
+  };
+
+  useEffect(() => { fetchUser(); }, []);
 
   const handleChange = (e) => setCar({ ...car, [e.target.name]: e.target.value });
 
