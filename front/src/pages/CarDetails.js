@@ -174,6 +174,38 @@ const styles = `
 
 function CarDetails() {
 
+  const [feedback, setFeedback] = useState({ name: '', rating: 5, comment: '' });
+  const [allReviews, setAllReviews] = useState([]);
+  const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
+  const fetchReviews = async () => {
+    const res = await fetch(`http://localhost:5000/api/feedback/${id}`);
+    const data = await res.json();
+    setAllReviews(data);
+  };
+
+  const handleFeedbackSubmit = async (e) => {
+    e.preventDefault();
+    const feedbackToSend = {
+      carId: id,
+      ...feedback,
+      name: feedback.name.trim() === "" ? "Anonymous" : feedback.name
+    };
+
+    const res = await fetch("http://localhost:5000/api/feedback", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(feedbackToSend)
+    });
+
+    if (res.ok) {
+      alert("Feedback submitted!");
+      setFeedback({ name: '', rating: 5, comment: '' });
+      setIsFeedbackOpen(false);
+      fetchReviews();
+    }
+  };
+
+
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -337,6 +369,14 @@ function CarDetails() {
               disabled={car.status === 'sold' || (typeof car.stock === 'number' ? car.stock <= 0 : false)}
             >
               {car.status === 'sold' || (typeof car.stock === 'number' ? car.stock <= 0 : false) ? 'Sold Out' : 'REQUEST'}
+            </button>
+
+            <button
+              className="btn-view"
+              onClick={() => setIsFeedbackOpen(true)}
+              style={{ marginTop: '10px' ,background:'#c4a460',width:'500px', padding: '10px',fontSize:'18px'}}
+            >
+              Rate this Car
             </button>
 
             <button
