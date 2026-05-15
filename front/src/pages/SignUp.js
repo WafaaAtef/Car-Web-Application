@@ -293,7 +293,7 @@ export default function SignUp() {
         </div>
 <div style={styles.imageBox}>
 <img
-  src="/images/allCars.png"
+  src="/allCars.jpg"
   alt="all cars"
   style={styles.statsImage}
 />
