@@ -1,6 +1,8 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const fs = require("fs");
+const path = require("path");
 
 const get_user = async (req, res) => {
         const token = req.cookies.token;
@@ -17,12 +19,23 @@ const delete_user = async (req, res) => {
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const user_id = decoded.id;
-        const { old_password } = req.body;
+        const { password } = req.body;
+        if (!password) {
+                return res.status(400).json({ message: "Password is required" });
+        }
         const user = await User.findById(user_id);
 
-        const r = await bcrypt.compare(old_password, user.password);
+        const r = await bcrypt.compare(password, user.password);
         if (!r) {
                 return res.status(400).json({ message: "Wrong password" });
+        }
+        if (user.profileImage) {
+                const imagePath = path.join(__dirname, "../..", user.profileImage);
+
+
+                if (fs.existsSync(imagePath)) {
+                        fs.unlinkSync(imagePath);
+                }
         }
         const deletedUser = await User.findByIdAndDelete(user_id);
         res.clearCookie('token');
@@ -33,6 +46,9 @@ const delete_user = async (req, res) => {
 const update_email = async (req, res) => {
         const token = req.cookies.token;
         const { password, email } = req.body;
+        if (!password || !email) {
+                return res.status(400).json({ message: "Password and email are required" });
+        }
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const user_id = decoded.id;
         const user = await User.findById(user_id);
@@ -54,9 +70,11 @@ const update_password = async (req, res) => {
 
         const { old_password, new_password, confirm_password } = req.body;
 
-        if (new_password !== confirm_password) {
-                return res.status(400).json({ message: "Passwords do not match" });
+        if (!old_password || !new_password || !confirm_password) {
+                return res.status(400).json({ message: "All fields are required" });
         }
+
+
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
         const user_id = decoded.id;
@@ -67,6 +85,24 @@ const update_password = async (req, res) => {
         if (!r) {
                 return res.status(400).json({ message: "Wrong password" });
         }
+        if (new_password !== confirm_password) {
+                return res.status(400).json({ message: "Passwords do not match" });
+        }
+        if (new_password.length < 8) {
+                return res.status(400).json({ message: "Password must be at least 8 characters long" });
+        }
+        if (!new_password.match(/[A-Z]/)) {
+                return res.status(400).json({ message: "Password must contain at least one uppercase letter" });
+        }
+        if (!new_password.match(/[a-z]/)) {
+                return res.status(400).json({ message: "Password must contain at least one lowercase letter" });
+        }
+        if (!new_password.match(/[0-9]/)) {
+                return res.status(400).json({ message: "Password must contain at least one number" });
+        }
+        if (!new_password.match(/[@$!%*?&]/)) {
+                return res.status(400).json({ message: "Password must contain at least one special character" });
+        }
         user.password = new_password;
         await user.save();
         return res.status(200).json({ message: "Password updated successfully" });
@@ -75,6 +111,9 @@ const update_password = async (req, res) => {
 const update_user = async (req, res) => {
         const token = req.cookies.token;
         const { firstname, lastname, phone } = req.body;
+        if (!firstname || !lastname) {
+                return res.status(400).json({ message: "Firstname and lastname are required" });
+        }
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const user_id = decoded.id;
         const user = await User.findById(user_id);
@@ -95,6 +134,14 @@ const update_profile_image = async (req, res) => {
 
         if (!req.file) {
                 return res.status(400).json({ message: "No image uploaded" });
+        }
+        if (user.profileImage) {
+                const imagePath = path.join(__dirname, "../..", user.profileImage);
+
+
+                if (fs.existsSync(imagePath)) {
+                        fs.unlinkSync(imagePath);
+                }
         }
 
         user.profileImage = `/uploads/profile_photo/${req.file.filename}`;
