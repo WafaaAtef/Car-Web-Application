@@ -2,13 +2,14 @@
   "info": {
     "_postman_id": "102b4967-2d54-416e-b575-678320f40e42",
     "name": "car-api",
+    "description": "car-api is a RESTful API for managing a car marketplace. It covers user authentication, profile management, and car listing operations. All protected routes require a valid JWT token passed via cookies.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "54457665",
     "_collection_link": "https://go.postman.co/collection/54457665-102b4967-2d54-416e-b575-678320f40e42?source=collection_link"
   },
   "item": [
     {
-      "name": "register",
+      "name": "Register User",
       "request": {
         "method": "POST",
         "header": [],
@@ -41,7 +42,8 @@
               "disabled": true
             }
           ]
-        }
+        },
+        "description": "## POST /api/auth/register\n\nRegisters a new user account.\n\n---\n\n### Request Body (JSON)\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| firstname | string | Yes | User's first name |\n| lastname | string | Yes | User's last name |\n| username | string | Yes | Unique username |\n| email | string | Yes | Valid email address |\n| password | string | Yes | Password (min 8 chars, must include uppercase, number, and special character) |\n\n---\n\n### Responses\n\n**201 Created — Success**\n\n``` json\n{\n  \"_id\": \"64f1a2b3c4d5e6f7a8b9c0d1\",\n  \"firstname\": \"Ahmed\",\n  \"lastname\": \"Khalil\",\n  \"username\": \"ahmedkhalil\",\n  \"email\": \"itskhalil@gmail.com\"\n}\n\n ```\n\n**400 Bad Request — Validation Error**\n\n``` json\n{\n  \"message\": \"Email already in use\"\n}\n\n ```"
       },
       "response": [
         {
@@ -131,7 +133,7 @@
       ]
     },
     {
-      "name": "login",
+      "name": "Login",
       "request": {
         "auth": {
           "type": "noauth"
@@ -167,7 +169,8 @@
               "disabled": true
             }
           ]
-        }
+        },
+        "description": "## POST /api/auth/login\n\nAuthenticates a user and returns a JWT token stored in an HTTP-only cookie.\n\n---\n\n### Request Body (JSON)\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| email | string | Yes | Registered email address |\n| password | string | Yes | Account password |\n\n---\n\n### Responses\n\n**200 OK — Success**\n\n``` json\n{\n  \"message\": \"Login successful\"\n}\n\n ```\n\n> JWT token is set as an HTTP-only cookie named `token`. \n  \n\n**400 Bad Request — Wrong Credentials**\n\n``` json\n{\n  \"message\": \"Invalid email or password\"\n}\n\n ```"
       },
       "response": [
         {
@@ -261,7 +264,7 @@
       ]
     },
     {
-      "name": "get_profile",
+      "name": "Get Profile",
       "request": {
         "auth": {
           "type": "noauth"
@@ -279,7 +282,8 @@
             "api",
             "user"
           ]
-        }
+        },
+        "description": "## GET /api/user\n\nRetrieves the authenticated user's profile information.\n\n---\n\n### Authentication\n\nRequires a valid JWT token stored in cookies (`token`). No request body needed.\n\n---\n\n### Responses\n\n**200 OK — Success**\n```json\n{\n  \"_id\": \"64f1a2b3c4d5e6f7a8b9c0d1\",\n  \"firstname\": \"Ahmed\",\n  \"lastname\": \"Khalil\",\n  \"username\": \"ahmedkhalil\",\n  \"email\": \"itskhalil@gmail.com\",\n  \"profileImage\": \"/uploads/profile_photo/image.jpg\"\n}\n```\n\n**401 Unauthorized**\n```json\n{\n  \"message\": \"Unauthorized\"\n}\n```"
       },
       "response": [
         {
@@ -351,7 +355,7 @@
       ]
     },
     {
-      "name": "update_profile",
+      "name": "Update Profile",
       "request": {
         "auth": {
           "type": "noauth"
@@ -378,7 +382,8 @@
             "api",
             "user"
           ]
-        }
+        },
+        "description": "## PATCH /api/user\n\nUpdates the authenticated user's profile details.\n\n---\n\n### Authentication\n\nRequires a valid JWT token stored in cookies (`token`).\n\n---\n\n### Request Body (JSON)\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| firstname | string | Yes | New first name |\n| lastname | string | Yes | New last name |\n| phone | string | No | Phone number (e.g. +201023456789) |\n\n---\n\n### Responses\n\n**200 OK — Success**\n\n``` json\n{\n  \"message\": \"Profile updated successfully\"\n}\n\n ```\n\n**401 Unauthorized**\n\n``` json\n{\n  \"message\": \"Unauthorized\"\n}\n\n ```"
       },
       "response": [
         {
@@ -459,7 +464,7 @@
       ]
     },
     {
-      "name": "delete_profile",
+      "name": "Delete Profile",
       "request": {
         "auth": {
           "type": "noauth"
@@ -494,7 +499,8 @@
               "disabled": true
             }
           ]
-        }
+        },
+        "description": "## DELETE /api/user\n\nPermanently deletes the authenticated user's account.\n\n---\n\n### Authentication\n\nRequires a valid JWT token stored in cookies (`token`).\n\n---\n\n### Request Body (JSON)\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| password | string | Yes | Current password to confirm deletion |\n\n---\n\n### Responses\n\n**200 OK — Success**\n\n``` json\n{\n  \"message\": \"Account deleted successfully\"\n}\n\n ```\n\n**400 Bad Request — Wrong Password**\n\n``` json\n{\n  \"message\": \"Incorrect password\"\n}\n\n ```\n\n**401 Unauthorized**\n\n``` json\n{\n  \"message\": \"Unauthorized\"\n}\n\n ```"
       },
       "response": [
         {
@@ -587,7 +593,7 @@
       ]
     },
     {
-      "name": "update_profile_email",
+      "name": "Update Profile Email",
       "request": {
         "auth": {
           "type": "noauth"
@@ -615,7 +621,8 @@
             "user",
             "email"
           ]
-        }
+        },
+        "description": "## PATCH /api/user/email\n\nUpdates the authenticated user's email address.\n\n---\n\n### Authentication\n\nRequires a valid JWT token stored in cookies (`token`).\n\n---\n\n### Request Body (JSON)\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| email | string | Yes | New email address |\n| password | string | Yes | Current password to confirm the change |\n\n---\n\n### Responses\n\n**200 OK — Success**\n\n``` json\n{\n  \"message\": \"Email updated successfully\"\n}\n\n ```\n\n**400 Bad Request**\n\n``` json\n{\n  \"message\": \"Email already in use\"\n}\n\n ```\n\n**401 Unauthorized**\n\n``` json\n{\n  \"message\": \"Unauthorized\"\n}\n\n ```"
       },
       "response": [
         {
@@ -855,7 +862,7 @@
       ]
     },
     {
-      "name": "update_profile_password",
+      "name": "Update Profile Password",
       "request": {
         "auth": {
           "type": "noauth"
@@ -883,7 +890,8 @@
             "user",
             "password"
           ]
-        }
+        },
+        "description": "## PATCH /api/user/password\n\nUpdates the authenticated user's password.\n\n---\n\n### Authentication\n\nRequires a valid JWT token stored in cookies (`token`).\n\n---\n\n### Request Body (JSON)\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| old_password | string | Yes | Current password |\n| new_password | string | Yes | New password (min 8 chars, must include uppercase, number, and special character) |\n| confirm_password | string | Yes | Must match `new_password` |\n\n---\n\n### Responses\n\n**200 OK — Success**\n\n``` json\n{\n  \"message\": \"Password updated successfully\"\n}\n\n ```\n\n**400 Bad Request — Mismatch**\n\n``` json\n{\n  \"message\": \"Passwords do not match\"\n}\n\n ```\n\n**401 Unauthorized**\n\n``` json\n{\n  \"message\": \"Unauthorized\"\n}\n\n ```"
       },
       "response": [
         {
@@ -1117,7 +1125,7 @@
       ]
     },
     {
-      "name": "update_photo_profile",
+      "name": "Update Profile Photo",
       "request": {
         "auth": {
           "type": "noauth"
@@ -1147,7 +1155,8 @@
             "user",
             "profile-image"
           ]
-        }
+        },
+        "description": "## POST /api/user/profile-image\n\nUploads and updates the authenticated user's profile photo.\n\n---\n\n### Authentication\n\nRequires a valid JWT token stored in cookies (`token`).\n\n---\n\n### Request Body (multipart/form-data)\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| image | file | Yes | Image file (jpg, png, etc.) |\n\n---\n\n### Responses\n\n**200 OK — Success**\n\n``` json\n{\n  \"message\": \"Profile image updated successfully\",\n  \"image\": \"/uploads/profile_photo/filename.jpg\"\n}\n\n ```\n\n**400 Bad Request — No File**\n\n``` json\n{\n  \"message\": \"No image uploaded\"\n}\n\n ```\n\n**401 Unauthorized**\n\n``` json\n{\n  \"message\": \"Unauthorized\"\n}\n\n ```"
       },
       "response": [
         {
@@ -1231,7 +1240,7 @@
       ]
     },
     {
-      "name": "get_cars",
+      "name": "Get All Cars",
       "request": {
         "method": "GET",
         "header": [],
@@ -1246,7 +1255,8 @@
             "api",
             "cars"
           ]
-        }
+        },
+        "description": "## GET /api/cars\n\nReturns a list of all available car listings. Public endpoint — no authentication required.\n\n---\n\n### Responses\n\n**200 OK — Success**\n```json\n[\n  {\n    \"_id\": \"69fe3ed3a47f07fe7e3e0ad7\",\n    \"name\": \"Mercedes C300\",\n    \"brand\": \"Mercedes\",\n    \"model\": \"C300\",\n    \"year\": 2023,\n    \"price\": 4000000,\n    \"location\": \"Cairo\",\n    \"status\": \"available\",\n    \"images\": [\"/uploads/car1.jpg\"]\n  }\n]\n```"
       },
       "response": [
         {
@@ -1318,7 +1328,7 @@
       ]
     },
     {
-      "name": "get_car_id",
+      "name": "Get Car by ID",
       "request": {
         "method": "GET",
         "header": [],
@@ -1334,7 +1344,8 @@
             "cars",
             "69fe3ed3a47f07fe7e3e0ad7"
           ]
-        }
+        },
+        "description": "## GET /api/cars/:id\n\nRetrieves the details of a specific car by its ID. Public endpoint — no authentication required.\n\n---\n\n### URL Parameters\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| id | string | Yes | The MongoDB ID of the car |\n\n---\n\n### Responses\n\n**200 OK — Success**\n\n``` json\n{\n  \"_id\": \"69fe3ed3a47f07fe7e3e0ad7\",\n  \"name\": \"Mercedes C300\",\n  \"brand\": \"Mercedes\",\n  \"model\": \"C300\",\n  \"year\": 2023,\n  \"price\": 4000000,\n  \"location\": \"Cairo\",\n  \"status\": \"available\",\n  \"images\": [\"/uploads/car1.jpg\"]\n}\n\n ```\n\n**404 Not Found**\n\n``` json\n{\n  \"message\": \"Car not found\"\n}\n\n ```"
       },
       "response": [
         {
@@ -1407,7 +1418,7 @@
       ]
     },
     {
-      "name": "add_car",
+      "name": "Add Car",
       "request": {
         "method": "POST",
         "header": [
@@ -1419,12 +1430,6 @@
         "body": {
           "mode": "formdata",
           "formdata": [
-            {
-              "key": "name",
-              "value": "Mercedes C300",
-              "type": "text",
-              "uuid": "82d88b04-ae0d-4a55-a59d-e3d9f72e7081"
-            },
             {
               "key": "model",
               "value": "C300",
@@ -1477,7 +1482,8 @@
             "api",
             "cars"
           ]
-        }
+        },
+        "description": "## POST /api/cars\n\nCreates a new car listing. Requires admin privileges.\n\n---\n\n### Authentication\n\nRequires a valid JWT token in the `Authorization` header as `Bearer {{token}}`.\n\n---\n\n### Request Body (multipart/form-data)\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| brand | string | Yes | Car brand (e.g. Mercedes) |\n| model | string | Yes | Car model (e.g. C300) |\n| year | number | Yes | Manufacturing year (e.g. 2023) |\n| price | number | Yes | Price in local currency (e.g. 4000000) |\n| location | string | No | City or location of the car (e.g. Cairo) |\n| status | string | Yes | Availability status: `available` or `sold` |\n| images | file | Yes | Up to 5 image files under the key `images` |\n\n---\n\n### Responses\n\n**201 Created — Success**\n\n``` json\n{\n  \"_id\": \"6a072216e85493d82b731d4d\",\n  \"brand\": \"Mercedes\",\n  \"model\": \"C300\",\n  \"year\": 2023,\n  \"price\": 4000000,\n  \"location\": \"Cairo\",\n  \"status\": \"available\",\n  \"images\": [\"/uploads/car1.jpg\"]\n}\n\n ```\n\n**400 Bad Request**\n\n``` json\n{\n  \"message\": \"Validation error message\"\n}\n\n ```\n\n**403 Forbidden — Not Admin**\n\n``` json\n{\n  \"message\": \"Access denied\"\n}\n\n ```"
       },
       "response": [
         {
@@ -1604,7 +1610,7 @@
       ]
     },
     {
-      "name": "update_car",
+      "name": "Update Car",
       "request": {
         "method": "PUT",
         "header": [
@@ -1616,12 +1622,6 @@
         "body": {
           "mode": "formdata",
           "formdata": [
-            {
-              "key": "name",
-              "value": "Mercedes C300",
-              "type": "text",
-              "uuid": "82d88b04-ae0d-4a55-a59d-e3d9f72e7081"
-            },
             {
               "key": "model",
               "value": "C300",
@@ -1675,7 +1675,8 @@
             "cars",
             "6a072216e85493d82b731d4d"
           ]
-        }
+        },
+        "description": "## PUT /api/cars/:id\n\nUpdates an existing car listing by its ID. Requires admin privileges.\n\n---\n\n### Authentication\n\nRequires a valid JWT token in the `Authorization` header as `Bearer {{token}}`.\n\n---\n\n### URL Parameters\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| id | string | Yes | The MongoDB ID of the car |\n\n---\n\n### Request Body (multipart/form-data)\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| brand | string | Yes | Car brand |\n| model | string | Yes | Car model |\n| year | number | Yes | Manufacturing year |\n| price | number | Yes | Price in local currency |\n| location | string | No | City or location |\n| status | string | Yes | `available` or `sold` |\n| images | file | Yes | Up to 5 replacement image files |\n\n---\n\n### Responses\n\n**200 OK — Success**\n\n``` json\n{\n  \"_id\": \"6a072216e85493d82b731d4d\",\n  \"brand\": \"Mercedes\",\n  \"model\": \"C300\",\n  \"year\": 2023,\n  \"price\": 2000000,\n  \"location\": \"Cairo\",\n  \"status\": \"available\",\n  \"images\": [\"/uploads/car1.jpg\"]\n}\n\n ```\n\n**404 Not Found**\n\n``` json\n{\n  \"message\": \"Car not found\"\n}\n\n ```\n\n**403 Forbidden — Not Admin**\n\n``` json\n{\n  \"message\": \"Access denied\"\n}\n\n ```"
       },
       "response": [
         {
@@ -1803,7 +1804,7 @@
       ]
     },
     {
-      "name": "delete_car",
+      "name": "Delete Car",
       "request": {
         "method": "DELETE",
         "header": [
@@ -1824,7 +1825,8 @@
             "cars",
             "6a072216e85493d82b731d4d"
           ]
-        }
+        },
+        "description": "## DELETE /api/cars/:id\n\nDeletes a car listing by its ID. Requires admin privileges.\n\n---\n\n### Authentication\n\nRequires a valid JWT token in the `Authorization` header as `Bearer {{token}}`.\n\n---\n\n### URL Parameters\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| id | string | Yes | The MongoDB ID of the car |\n\n---\n\n### Responses\n\n**200 OK — Success**\n\n``` json\n{\n  \"message\": \"Car deleted successfully\"\n}\n\n ```\n\n**404 Not Found**\n\n``` json\n{\n  \"message\": \"Car not found\"\n}\n\n ```\n\n**403 Forbidden — Not Admin**\n\n``` json\n{\n  \"message\": \"Access denied\"\n}\n\n ```"
       },
       "response": [
         {
