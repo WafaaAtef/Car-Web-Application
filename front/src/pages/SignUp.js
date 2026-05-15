@@ -291,28 +291,33 @@ export default function SignUp() {
           <br />
           starts here.
         </div>
-
-        <div style={styles.stats}>
-          {[
-            ['500+', 'Vehicles'],
-            ['12K', 'Members'],
-            ['98%', 'Satisfied']
-          ].map(([num, label]) => (
-            <div key={label} style={styles.statItem}>
-              <span style={styles.statNum}>{num}</span>
-
-              <span style={styles.statLabel}>
-                {label}
-              </span>
-            </div>
-          ))}
-        </div>
+<div style={styles.imageBox}>
+<img
+  src="/images/allCars.png"
+  alt="all cars"
+  style={styles.statsImage}
+/>
+</div>
       </div>
     </div>
   );
 }
 
 const styles = {
+  imageBox: {
+  width: '100%',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  marginTop: '20px'
+},
+
+statsImage: {
+  width: '100%',
+  maxWidth: '500px',
+  borderRadius: '12px',
+  border: '1px solid rgba(201,168,76,0.2)'
+},
   page: {
     display: 'flex',
     minHeight: '100vh',
