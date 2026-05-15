@@ -368,26 +368,49 @@ function Dashboard() {
                   <button className={`custom-dropdown-item ${sort === "year" ? "active" : ""}`} onClick={() => handleSort("year")}>Year — New to Old</button>
                 </div>
               )}
+              
             </div>
-            {user && (
-              <button
-                onClick={() => navigate("/profile")}
-                style={{
-                  background: "rgba(196,164,96,0.2)",
-                  border: "1px solid rgba(196,164,96,0.5)",
-                  color: "#c4a460",
-                  padding: "8px 12px",
-                  cursor: "pointer",
-                  fontWeight: "600",
-                  letterSpacing: "1px",
-                  textTransform: "uppercase",
-                  fontSize: "11px",
-                  borderRadius: "2px",
-                }}
-              >
-                Profile
-              </button>
-            )}
+
+{!user && (
+  <button
+    onClick={() => navigate("/login")}
+    style={{
+      background: "rgba(255,255,255,0.05)",
+      border: "1px solid rgba(255,255,255,0.2)",
+      color: "#ffffff",
+      padding: "8px 14px",
+      cursor: "pointer",
+      fontWeight: "600",
+      letterSpacing: "1px",
+      textTransform: "uppercase",
+      fontSize: "11px",
+      borderRadius: "2px",
+    }}
+  >
+    Sign In
+  </button>
+)}
+
+
+{user && (
+  <button
+    onClick={() => navigate("/profile")}
+    style={{
+      background: "rgba(196,164,96,0.2)",
+      border: "1px solid rgba(196,164,96,0.5)",
+      color: "#c4a460",
+      padding: "8px 12px",
+      cursor: "pointer",
+      fontWeight: "600",
+      letterSpacing: "1px",
+      textTransform: "uppercase",
+      fontSize: "11px",
+      borderRadius: "2px",
+    }}
+  >
+    Profile
+  </button>
+)}
           </div>
         </header>
 
