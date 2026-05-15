@@ -38,6 +38,9 @@ router.get("/:id", async (req, res) => {
 router.post("/", auth, isAdmin, upload.array('images', 5), async (req, res) => {
   try {
     const imagesPaths = req.files?.map(f => `/uploads/${f.filename}`) || [];
+    if (!req.body.brand || !req.body.model || !req.body.year || !req.body.price || !req.body.status) {
+      return res.status(400).json({ message: "Missing required fields" });
+    }
 
     const car = new Car({
       ...req.body,
@@ -55,6 +58,9 @@ router.put("/:id", auth, isAdmin, upload.array('images', 5), async (req, res) =>
   try {
     const existing = await Car.findById(req.params.id);
     if (!existing) return res.status(404).json({ message: "Car not found" });
+    if (!req.body.brand || !req.body.model || !req.body.year || !req.body.price || !req.body.status) {
+      return res.status(400).json({ message: "Missing required fields" });
+    }
 
     const newImages = req.files?.map(f => `/uploads/${f.filename}`) || [];
 

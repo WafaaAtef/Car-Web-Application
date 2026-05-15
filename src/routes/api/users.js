@@ -10,7 +10,7 @@ router.delete('/', auth, user.delete_user);
 router.patch('/', auth, user.update_user);
 router.patch('/email', auth, user.update_email);
 router.patch('/password', auth, user.update_password);
-router.patch('/profile-image', auth, upload_profile.single("image"), user.update_profile_image);
+router.post('/profile-image', auth, upload_profile.single("image"), user.update_profile_image);
 router.get('/logout', (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
@@ -18,5 +18,5 @@ router.get('/logout', (req, res) => {
   });
   res.status(200).json({ msg: "Logged out" });
 });
-module.exports = router;
+
 module.exports = router;

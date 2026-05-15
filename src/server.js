@@ -12,6 +12,8 @@ const userRoutes = require('./routes/api/users');
 const carRoutes = require('./routes/api/cars');
 const requestRoutes = require('./routes/api/Request');
 
+const feedbackRoutes = require('./routes/api/Feedback');
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -31,6 +33,8 @@ app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/cars', carRoutes);
 app.use('/api/requests', requestRoutes);
+
+app.use('/api/feedback', feedbackRoutes);
 
 app.use((req, res) => {
   res.status(404).json({ message: 'Page not found' });
