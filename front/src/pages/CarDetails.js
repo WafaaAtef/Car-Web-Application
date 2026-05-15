@@ -173,6 +173,39 @@ const styles = `
 `;
 
 function CarDetails() {
+
+  const [feedback, setFeedback] = useState({ name: '', rating: 5, comment: '' });
+  const [allReviews, setAllReviews] = useState([]);
+  const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
+  const fetchReviews = async () => {
+    const res = await fetch(`http://localhost:5000/api/feedback/${id}`);
+    const data = await res.json();
+    setAllReviews(data);
+  };
+
+  const handleFeedbackSubmit = async (e) => {
+    e.preventDefault();
+    const feedbackToSend = {
+      carId: id,
+      ...feedback,
+      name: feedback.name.trim() === "" ? "Anonymous" : feedback.name
+    };
+
+    const res = await fetch("http://localhost:5000/api/feedback", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(feedbackToSend)
+    });
+
+    if (res.ok) {
+      alert("Feedback submitted!");
+      setFeedback({ name: '', rating: 5, comment: '' });
+      setIsFeedbackOpen(false);
+      fetchReviews();
+    }
+  };
+
+
   const { id } = useParams();
   const navigate = useNavigate();
   const [car, setCar] = useState(null);
@@ -190,6 +223,7 @@ function CarDetails() {
 
   useEffect(() => {
     fetchCar();
+    fetchReviews();
   }, [id]);
 
 
@@ -256,7 +290,86 @@ function CarDetails() {
             <button className="btn-request">
               Request
             </button>
+
+            <button
+              className="btn-view"
+              onClick={() => setIsFeedbackOpen(true)}
+              style={{ marginTop: '10px' ,background:'#c4a460',width:'500px', padding: '10px',fontSize:'18px'}}
+            >
+              Rate this Car
+            </button>
+
           </div>
+        </div>
+
+        {isFeedbackOpen && (
+          <div style={{
+            position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
+            background: 'rgba(0,0,0,0.85)', display: 'flex', alignItems: 'center',
+            justifyContent: 'center', zIndex: 2000, padding: '20px'
+          }}>
+            <div style={{
+              background: '#0d0d0f', border: '1px solid #c4a460',
+              padding: '40px', width: '100%', maxWidth: '500px', position: 'relative'
+            }}>
+             
+              <button
+                onClick={() => setIsFeedbackOpen(false)}
+                style={{ position: 'absolute', top: '15px', right: '15px', background: 'none', border: 'none', color: '#fff', fontSize: '20px', cursor: 'pointer' }}
+              >
+                ✕
+              </button>
+
+              <h2 style={{ color: '#c4a460', fontFamily: 'Barlow Condensed', marginTop: 0 }}>SUBMIT EVALUATION</h2>
+
+              <form onSubmit={handleFeedbackSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                <input
+                  type="text" placeholder="Your Name" value={feedback.name}
+                  onChange={(e) => setFeedback({ ...feedback, name: e.target.value })}
+                  style={{ padding: '12px', background: '#111', color: 'white', border: '1px solid #333' }}
+                />
+                <select
+                  value={feedback.rating}
+                  onChange={(e) => setFeedback({ ...feedback, rating: e.target.value })}
+                  style={{ padding: '12px', background: '#111', color: 'white', border: '1px solid #333' }}
+                >
+                  <option value="5">5 Stars - Excellent</option>
+                  <option value="4">4 Stars - Good</option>
+                  <option value="3">3 Stars - Average</option>
+                  <option value="2">2 Stars - Poor</option>
+                  <option value="1">1 Star - Terrible</option>
+                </select>
+                <textarea
+                  placeholder="Share your experience with this car..." value={feedback.comment}
+                  onChange={(e) => setFeedback({ ...feedback, comment: e.target.value })}
+                  style={{ padding: '12px', background: '#111', color: 'white', border: '1px solid #333', height: '120px' }}
+                  required
+                />
+                <button type="submit" className="btn-request" style={{ width: '100%' }}>Submit Evaluation</button>
+              </form>
+            </div>
+          </div>
+        )}
+
+        <div style={{ marginTop: '30px' }}>
+          {allReviews.length === 0 ? (
+            <p style={{ opacity: 0.5 }}>No evaluations yet.</p>
+          ) : (
+            allReviews.map((rev, index) => (
+              <div key={index} style={{ background: '#111', padding: '15px', marginBottom: '10px', borderRadius: '4px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+
+                  <strong style={{ color: '#c4a460' }}>{rev.name}</strong>
+                  <span style={{ color: '#ffd700',fontSize:'25px'}} >
+                    {"★".repeat(rev.rating)}{"☆".repeat(5 - rev.rating)}
+                  </span>
+                </div>
+
+                <p style={{ margin: '10px 0 5px 0', opacity: 0.8, fontSize: '20px' }}>{rev.comment}</p>
+                <small style={{ opacity: 0.3, fontSize: '15px' }}>{new Date(rev.date).toLocaleDateString()}</small>
+              </div>
+            ))
+          )}
         </div>
       </div>
     </>
