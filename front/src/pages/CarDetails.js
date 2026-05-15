@@ -178,19 +178,51 @@ function CarDetails() {
   const [car, setCar] = useState(null);
   const [currentImage, setCurrentImage] = useState(0);
 
-  const fetchCar = async () => {
-    const res = await fetch(`/api/cars/${id}`);
-    if (res.ok) {
-      const data = await res.json();
-      setCar(data);
-    } else {
-      navigate("/");
+  const handleRequest = async (carId) => {
+    try {
+      const response = await fetch(
+        'http://localhost:5000/api/requests',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          credentials: 'include',
+          body: JSON.stringify({
+            carId: carId,
+            price: car.price
+          })
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert('Request sent successfully');
+        navigate('/');
+      } else {
+        alert(data.message || data.msg || 'Failed to send request');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Error sending request');
     }
   };
-
   useEffect(() => {
-    fetchCar();
-  }, [id]);
+    const fetchCar = async () => {
+      const res = await fetch(`http://localhost:5000/api/cars/${id}`);
+      if (res.ok) {
+        const data = await res.json();
+        setCar(data);
+      } else {
+        navigate("/");
+      }
+    };
+
+    if (id) {
+      fetchCar();
+    }
+  }, [id, navigate]);
 
 
   if (!car) return <div>Loading...</div>;
@@ -251,10 +283,18 @@ function CarDetails() {
                   {Number(car.price).toLocaleString("en-EG")} EGP
                 </span>
               </div>
+              <div className="car-spec">
+                <span className="car-spec-label">Stock</span>
+                <span className="car-spec-value">{car.stock ?? 0}</span>
+              </div>
             </div>
 
-            <button className="btn-request">
-              Request
+            <button
+              className="btn-request"
+              onClick={() => handleRequest(car._id)}
+              disabled={car.status === 'sold' || (typeof car.stock === 'number' ? car.stock <= 0 : false)}
+            >
+              {car.status === 'sold' || (typeof car.stock === 'number' ? car.stock <= 0 : false) ? 'Sold Out' : 'REQUEST'}
             </button>
           </div>
         </div>

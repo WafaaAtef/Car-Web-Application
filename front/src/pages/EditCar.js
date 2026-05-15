@@ -400,6 +400,23 @@ function EditCar() {
               <div className="field-group">
                 <div className="field">
                   <label className="field-label">
+                    Stock {isChanged("stock") && <span className="changed-dot" />}
+                  </label>
+                  <input
+                    className="field-input"
+                    name="stock"
+                    type="number"
+                    min="0"
+                    value={car.stock || 0}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="field-group">
+                <div className="field">
+                  <label className="field-label">
                     Mileage (km) {isChanged("mileage") && <span className="changed-dot" />}
                   </label>
                   <input

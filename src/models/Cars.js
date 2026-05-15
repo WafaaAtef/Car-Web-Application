@@ -28,6 +28,12 @@ const carSchema = new mongoose.Schema({
     type: String,
     enum: ['available', 'sold'],
     default: 'available'
+  },
+  stock: {
+    type: Number,
+    required: true,
+    default: 1,
+    min: 0
   }
 }, { timestamps: true });
 
