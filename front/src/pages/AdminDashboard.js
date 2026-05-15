@@ -182,28 +182,13 @@ function AdminDashboard() {
   const [cars, setCars] = useState([]);
   const navigate = useNavigate();
 
-  const fetchUser = async () => {
-    const res = await fetch("/api/user", {
-      credentials: "include",
-    });
-    if (res.status === 401) {
-      navigate("/");
-      return;
-    }
-    const data = await res.json();
-    if (data.role !== 'admin') {
-      navigate("/");
-      return;
-    }
-  };
-
   const fetchCars = async () => {
     const res = await fetch("/api/cars");
     const data = await res.json();
     setCars(data);
   };
 
-  useEffect(() => { fetchUser(); fetchCars(); }, []);
+  useEffect(() => { fetchCars(); }, []);
 
   const handleDelete = async (id) => {
     if (!window.confirm("Remove this vehicle from the showroom?")) return;
