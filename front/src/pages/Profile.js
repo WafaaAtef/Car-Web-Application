@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import PhoneInput from 'react-phone-input-2'
-import 'react-phone-input-2/lib/style.css'
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+import { useFormik } from "formik";
 
-
+// ─────────────────────────────────────────────
+// STYLES
+// ─────────────────────────────────────────────
 const styles = `
 .dashboard {
   font-family: 'Barlow', sans-serif;
@@ -11,7 +14,6 @@ const styles = `
   background: #080809;
   color: #e8e8e8;
 }
-
 
 .topbar {
   display: flex;
@@ -32,11 +34,15 @@ const styles = `
   margin-left: 10px;
 }
 
-
 .profile-container {
   padding: 50px;
   display: flex;
   justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .profile-container { padding: 20px; }
+  .topbar { padding: 14px 20px; }
 }
 
 .profile-card {
@@ -44,7 +50,8 @@ const styles = `
   border: 1px solid rgba(255,255,255,0.06);
   padding: 30px;
   border-radius: 14px;
-  width: 850px;
+  width: 100%;
+  max-width: 850px;
   box-shadow: 0 10px 40px rgba(0,0,0,0.6);
 }
 
@@ -55,18 +62,28 @@ const styles = `
   letter-spacing: 2px;
 }
 
-
 .profile-card-content {
   display: grid;
   grid-template-columns: 220px 1fr;
   gap: 30px;
 }
 
+@media (max-width: 650px) {
+  .profile-card-content {
+    grid-template-columns: 1fr;
+  }
+  .profile-left {
+    flex-direction: row !important;
+    gap: 20px;
+    align-items: center;
+  }
+}
 
 .profile-left {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 10px;
 }
 
 .profile-image {
@@ -76,12 +93,12 @@ const styles = `
   object-fit: cover;
   border: 3px solid #c4a460;
   transition: 0.3s;
+  flex-shrink: 0;
 }
 
 .profile-image:hover {
   transform: scale(1.05);
 }
-
 
 .section {
   background: rgba(255,255,255,0.03);
@@ -90,18 +107,35 @@ const styles = `
   margin-bottom: 15px;
 }
 
+.section h4 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: #c4a460;
+  text-transform: uppercase;
+}
+
 .input {
   width: 100%;
   padding: 10px;
   margin-top: 6px;
-  margin-bottom: 10px;
   background: rgba(255,255,255,0.05);
   border: 1px solid rgba(255,255,255,0.1);
   color: white;
   outline: none;
   border-radius: 6px;
+  box-sizing: border-box;
 }
 
+.input.error-border {
+  border-color: #ff4d4d;
+}
+
+.error-msg {
+  color: #ff4d4d;
+  font-size: 12px;
+  margin: 2px 0 6px 2px;
+}
 
 .btn {
   padding: 10px 14px;
@@ -133,7 +167,6 @@ const styles = `
   background: rgba(255,255,255,0.15);
 }
 
-
 .flash {
   position: fixed;
   top: 80px;
@@ -143,194 +176,416 @@ const styles = `
   border-radius: 8px;
   font-weight: bold;
   z-index: 9999;
-  animation: fade 0.25s ease;
+  animation: fadeIn 0.25s ease;
 }
 
-.flash.success {
-  background: #c4a460;
-  color: white;
-}
+.flash.success { background: #c4a460; color: white; }
+.flash.error   { background: #ff2b2b; color: white; }
 
-.flash.error {
-  background: #c4a460;
-  color: white;
-}
-
-@keyframes fade {
+@keyframes fadeIn {
   from { opacity: 0; transform: translate(-50%, -10px); }
-  to { opacity: 1; transform: translate(-50%, 0); }
+  to   { opacity: 1; transform: translate(-50%, 0); }
 }
 `;
 
+
+// FLASH MESSAGE COMPONENT
+
+function FlashMessage({ flash }) {
+    if (!flash) return null;
+    return (
+        <div className={`flash ${flash.type}`}>
+            {flash.message}
+        </div>
+    );
+}
+
+// TOPBAR COMPONENT
+
+function Topbar({ onHome, onLogout }) {
+    return (
+        <div className="topbar">
+            <h2>PROFILE</h2>
+            <div className="topbar-actions">
+                <button className="btn btn-dark" onClick={onHome}>Home</button>
+                <button className="btn btn-danger" onClick={onLogout}>Logout</button>
+            </div>
+        </div>
+    );
+}
+
+// PROFILE IMAGE COMPONENT
+
+function ProfileImage({ imageSrc, onFileChange, onUpload }) {
+    return (
+        <div className="profile-left">
+            <img src={imageSrc} className="profile-image" alt="profile" />
+            <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                    const file = e.target.files[0];
+                    if (file) onFileChange(file);
+                }}
+            />
+            <button className="btn" onClick={onUpload}>Upload</button>
+        </div>
+    );
+}
+
+// PROFILE INFO FORM 
+
+function ProfileInfoForm({ initialValues, onSubmit }) {
+    const formik = useFormik({
+        enableReinitialize: true,
+        initialValues,
+        onSubmit,
+    });
+
+    return (
+        <div className="section">
+            <h4>Profile Info</h4>
+
+            <input
+                className="input"
+                name="firstname"
+                placeholder="First Name"
+                value={formik.values.firstname}
+                onChange={formik.handleChange}
+            />
+
+
+            <input
+                className="input"
+                name="lastname"
+                placeholder="Last Name"
+                value={formik.values.lastname}
+                onChange={formik.handleChange}
+            />
+
+
+            <PhoneInput
+                country="eg"
+                value={formik.values.phone}
+                onChange={(phone) => formik.setFieldValue("phone", phone)}
+                inputClass="input"
+                inputStyle={{ backgroundColor: "#1a1a1a", color: "white", border: "1px solid #333" }}
+                buttonStyle={{ backgroundColor: "#1a1a1a", border: "1px solid #333" }}
+                dropdownStyle={{ backgroundColor: "#1a1a1a", color: "white" }}
+            />
+
+
+            <button className="btn" onClick={formik.handleSubmit} style={{ marginTop: 8 }}>
+                Save Changes
+            </button>
+        </div>
+    );
+}
+
+// EMAIL FORM 
+
+function EmailForm({ currentEmail, onSubmit }) {
+    const formik = useFormik({
+        enableReinitialize: true,
+        initialValues: { email: currentEmail, password: "" },
+        onSubmit: async (values, { resetForm }) => {
+            await onSubmit(values);
+            resetForm();
+        }
+    });
+
+    return (
+        <div className="section">
+            <h4>Email</h4>
+
+            <input
+                className="input"
+                name="email"
+                placeholder="Email"
+                value={formik.values.email}
+                onChange={formik.handleChange}
+
+            />
+
+
+            <input
+                className="input"
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={formik.values.password}
+                onChange={formik.handleChange}
+
+            />
+
+
+            <button className="btn" onClick={formik.handleSubmit} style={{ marginTop: 8 }}>
+                Update Email
+            </button>
+        </div>
+    );
+}
+
+// PASSWORD FORM 
+
+function PasswordForm({ onSubmit }) {
+    const formik = useFormik({
+        enableReinitialize: true,
+        initialValues: {
+            old_password: "",
+            new_password: "",
+            confirm_password: "",
+        },
+        onSubmit: async (values, { resetForm }) => {
+            await onSubmit(values);
+            resetForm();
+        }
+    });
+
+    return (
+        <div className="section">
+            <h4>Password</h4>
+
+            <input
+                type="password"
+                className="input"
+                name="old_password"
+                placeholder="Current Password"
+                value={formik.values.old_password}
+                onChange={formik.handleChange}
+            />
+
+            <input
+                type="password"
+                className="input"
+                name="new_password"
+                placeholder="New Password"
+                value={formik.values.new_password}
+                onChange={formik.handleChange}
+            />
+
+            <input
+                type="password"
+                className="input"
+                name="confirm_password"
+                placeholder="Confirm New Password"
+                value={formik.values.confirm_password}
+                onChange={formik.handleChange}
+            />
+
+            <button className="btn" onClick={formik.handleSubmit} style={{ marginTop: 8 }}>
+                Update Password
+            </button>
+        </div>
+    );
+}
+
+
+// DELETE ACCOUNT FORM 
+
+function DeleteAccountForm({ onSubmit }) {
+    const formik = useFormik({
+        initialValues: { password: "" },
+        onSubmit,
+    });
+
+    return (
+        <div className="section">
+            <h4>Delete Account</h4>
+
+            <input
+                type="password"
+                className="input"
+                name="password"
+                placeholder="Enter your password"
+                value={formik.values.password}
+                onChange={formik.handleChange}
+            />
+
+            <button className="btn btn-danger" onClick={formik.handleSubmit} style={{ marginTop: 8 }}>
+                Delete Account
+            </button>
+        </div>
+    );
+}
+
+// MAIN PROFILE PAGE
+
 function Profile() {
     const [user, setUser] = useState(null);
-    const [form, setForm] = useState({ firstname: "", lastname: "", phone: "" });
-
-    const [email, setEmail] = useState("");
-    const [emailPass, setEmailPass] = useState("");
-
-    const [oldPass, setOldPass] = useState("");
-    const [newPass, setNewPass] = useState("");
-    const [confirmPass, setConfirmPass] = useState("");
-
-    const [deletePass, setDeletePass] = useState("");
-
     const [profileImage, setProfileImage] = useState(null);
     const [imageFile, setImageFile] = useState(null);
     const [preview, setPreview] = useState(null);
+    const [flash, setFlash] = useState(null);
 
     const navigate = useNavigate();
 
-
-    const [flash, setFlash] = useState(null);
     const showFlash = (message, type = "success") => {
         setFlash({ message, type });
         setTimeout(() => setFlash(null), 3000);
     };
 
+    // ── Fetch user ──
     useEffect(() => {
         const fetchUser = async () => {
-            const res = await fetch("/api/user", {
-                credentials: "include"
-            });
+            try {
+                const res = await fetch("/api/user", {
+                    credentials: "include"
+                });
 
-            if (res.status === 401)
-                return navigate("/login");
+                if (res.status === 401)
+                    return navigate("/login");
+                const data = await res.json();
 
-            const data = await res.json();
-            setUser(data);
+                setUser(data);
 
-            setProfileImage(data.profileImage);
-            setForm({
-                firstname: data.firstname,
-                lastname: data.lastname,
-                phone: data.phone,
-            });
-            setEmail(data.email);
+                setProfileImage(data.profileImage);
+            }
+            catch {
+
+                showFlash("Network error. Please try again.", "error");
+            }
+
         };
 
         fetchUser();
     }, [navigate]);
 
+    // ── Logout ──
+
     const logout = async () => {
+
         await fetch("/api/logout", {
             credentials: "include"
         });
         navigate("/login");
     };
 
-    const updateUser = async () => {
-        const res = await fetch("/api/user", {
-            method: "PATCH",
-            headers: { "Content-Type": "application/json" },
-            credentials: "include",
-            body: JSON.stringify(form),
-        });
+    // ── Update profile info ──
+    const updateUser = async (values) => {
+        try {
 
-        if (res.status === 401)
-            return navigate("/login");
+            const res = await fetch("/api/user", {
 
-        if (res.status === 400) {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+                body: JSON.stringify(values),
+            });
+            if (res.status === 401)
+                return navigate("/login");
+
             const data = await res.json();
-            return showFlash(data.message, "error");
-        }
 
-        const data = await res.json();
-        setUser(data);
-        showFlash("Updated successfully");
+            if (res.status === 400)
+                return showFlash(data.message, "error");
+
+            setUser(data);
+
+            showFlash("Updated successfully");
+
+        } catch {
+
+            showFlash("Network error. Please try again.", "error");
+        }
     };
 
-    const updateEmail = async () => {
-        const res = await fetch("/api/user/email", {
-            method: "PATCH",
-            headers: { "Content-Type": "application/json" },
-            credentials: "include",
-            body: JSON.stringify({ email, password: emailPass }),
-        });
+    // ── Update email ──
+    const updateEmail = async ({ email, password }) => {
+        try {
+            const res = await fetch("/api/user/email", {
 
-        if (res.status === 401)
-            return navigate("/login");
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+                body: JSON.stringify({ email, password }),
 
-        const data = await res.json().catch(() => ({}));
+            });
+            if (res.status === 401)
+                return navigate("/login");
+            const data = await res.json().catch(() => ({}));
 
-        if (res.status === 400) {
-            return showFlash(data.message, "error");
+            if (res.status === 400)
+                return showFlash(data.message, "error");
+            setUser((prev) => ({ ...prev, email }));
+            showFlash("Email updated");
+        } catch {
+            showFlash("Network error. Please try again.", "error");
         }
-
-        setUser((prev) => ({ ...prev, email }));
-        setEmailPass("");
-        showFlash("Email updated");
     };
 
-    const updatePassword = async () => {
-        const res = await fetch("/api/user/password", {
-            method: "PATCH",
-            headers: { "Content-Type": "application/json" },
-            credentials: "include",
-            body: JSON.stringify({
-                old_password: oldPass,
-                new_password: newPass,
-                confirm_password: confirmPass,
-            }),
-        });
+    // ── Update password ──
+    const updatePassword = async (values) => {
+        try {
+            const res = await fetch("/api/user/password", {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+                body: JSON.stringify(values),
+            });
+            if (res.status === 401)
+                return navigate("/login");
+            const data = await res.json();
 
-        if (res.status === 401)
-            return navigate("/login");
+            if (res.status === 400)
+                return showFlash(data.message, "error");
 
-        const data = await res.json();
+            showFlash("Password updated");
 
-        if (res.status === 400) {
-            return showFlash(data.message, "error");
+        } catch {
+            showFlash("Network error. Please try again.", "error");
         }
-
-        setOldPass("");
-        setNewPass("");
-        setConfirmPass("");
-        showFlash("Password updated");
     };
 
-    const deleteUser = async () => {
-        const res = await fetch("/api/user", {
-            method: "DELETE",
-            headers: { "Content-Type": "application/json" },
-            credentials: "include",
-            body: JSON.stringify({ password: deletePass }),
-        });
+    // ── Delete account ──
+    const deleteUser = async ({ password }) => {
+        try {
+            const res = await fetch("/api/user", {
+                method: "DELETE",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+                body: JSON.stringify({ password }),
+            });
+            if (res.status === 401)
+                return navigate("/login");
 
-        if (res.status === 401)
-            return navigate("/login");
+            const data = await res.json();
 
-        const data = await res.json();
-
-        if (res.status === 400) {
-            return showFlash(data.message, "error");
+            if (res.status === 400)
+                return showFlash(data.message, "error");
+            showFlash("Account deleted");
+            navigate("/login");
+        } catch {
+            showFlash("Network error. Please try again.", "error");
         }
-
-        showFlash("Account Deleted");
-        navigate("/login");
     };
 
-    const updatephoto = async () => {
+    // ── Upload photo ──
+    const updatePhoto = async () => {
         if (!imageFile)
             return showFlash("Select an image first", "error");
 
         const formData = new FormData();
+
         formData.append("image", imageFile);
 
-        const res = await fetch("/api/user/profile-image", {
-            method: "POST",
-            credentials: "include",
-            body: formData,
-        });
+        try {
+            const res = await fetch("/api/user/profile-image", {
+                method: "POST",
+                credentials: "include",
+                body: formData,
+            });
 
-        const data = await res.json();
-
-        if (!res.ok)
-            return showFlash(data.message, "error");
-
-        setProfileImage(data.image);
-        setPreview(null);
-        showFlash("Profile image updated");
+            const data = await res.json();
+            if (!res.ok)
+                return showFlash(data.message, "error");
+            setProfileImage(data.image);
+            setPreview(null);
+            setImageFile(null);
+            showFlash("Profile image updated");
+        } catch {
+            showFlash("Network error. Please try again.", "error");
+        }
     };
 
     const imageSrc =
@@ -342,27 +597,10 @@ function Profile() {
     return (
         <>
             <style>{styles}</style>
-
-            {flash && (
-                <div className={`flash ${flash.type}`}>
-                    {flash.message}
-                </div>
-            )}
+            <FlashMessage flash={flash} />
 
             <div className="dashboard">
-
-                <div className="topbar">
-                    <h2>PROFILE</h2>
-
-                    <div className="topbar-actions">
-                        <button className="btn btn-dark" onClick={() => navigate("/")}>
-                            Home
-                        </button>
-                        <button className="btn btn-danger" onClick={logout}>
-                            Logout
-                        </button>
-                    </div>
-                </div>
+                <Topbar onHome={() => navigate("/")} onLogout={logout} />
 
                 <div className="profile-container">
                     <div className="profile-card">
@@ -373,117 +611,33 @@ function Profile() {
                         ) : (
                             <div className="profile-card-content">
 
-                                <div className="profile-left">
-                                    <img src={imageSrc} className="profile-image" alt="profile" />
-
-                                    <input
-                                        type="file"
-                                        onChange={(e) => {
-                                            const file = e.target.files[0];
-                                            setImageFile(file);
-                                            if (file) setPreview(URL.createObjectURL(file));
-                                        }}
-                                    />
-
-                                    <button className="btn" onClick={updatephoto}>
-                                        Upload
-                                    </button>
-                                </div>
+                                <ProfileImage
+                                    imageSrc={imageSrc}
+                                    onFileChange={(file) => {
+                                        setImageFile(file);
+                                        setPreview(URL.createObjectURL(file));
+                                    }}
+                                    onUpload={updatePhoto}
+                                />
 
                                 <div>
+                                    <ProfileInfoForm
+                                        initialValues={{
+                                            firstname: user.firstname || "",
+                                            lastname: user.lastname || "",
+                                            phone: user.phone || "",
+                                        }}
+                                        onSubmit={updateUser}
+                                    />
 
-                                    <div className="section">
-                                        <h4>Profile Info</h4>
+                                    <EmailForm
+                                        currentEmail={user.email || ""}
+                                        onSubmit={updateEmail}
+                                    />
 
-                                        <input
-                                            className="input"
-                                            value={form.firstname}
-                                            onChange={(e) =>
-                                                setForm({ ...form, firstname: e.target.value })
-                                            }
-                                        />
+                                    <PasswordForm onSubmit={updatePassword} />
 
-                                        <input
-                                            className="input"
-                                            value={form.lastname}
-                                            onChange={(e) =>
-                                                setForm({ ...form, lastname: e.target.value })
-                                            }
-                                        />
-
-                                        <PhoneInput
-                                            country={'eg'}
-                                            value={form.phone}
-                                            onChange={(phone) => setForm({ ...form, phone: phone })}
-                                            inputClass="input"
-                                            inputStyle={{
-                                                backgroundColor: '#1a1a1a',
-                                                color: 'white',
-                                                border: '1px solid #333'
-                                            }}
-                                            buttonStyle={{
-                                                backgroundColor: '#1a1a1a',
-                                                border: '1px solid #333'
-                                            }}
-                                            dropdownStyle={{
-                                                backgroundColor: '#1a1a1a',
-                                                color: 'white'
-                                            }}
-                                        />
-
-
-                                        <button className="btn" onClick={updateUser}>
-                                            Save Changes
-                                        </button>
-                                    </div>
-
-                                    <div className="section">
-                                        <h4>Email</h4>
-
-                                        <input
-                                            className="input"
-                                            value={email}
-                                            onChange={(e) => setEmail(e.target.value)}
-                                        />
-
-                                        <input
-                                            type="password"
-                                            className="input"
-                                            placeholder="Password"
-                                            value={emailPass}
-                                            onChange={(e) => setEmailPass(e.target.value)}
-                                        />
-
-                                        <button className="btn" onClick={updateEmail}>
-                                            Update Email
-                                        </button>
-                                    </div>
-                                    <div className="section">
-                                        <h4>Password</h4>
-
-                                        <input type="password" className="input" placeholder="Old Password" value={oldPass} onChange={(e) => setOldPass(e.target.value)} />
-                                        <input type="password" className="input" placeholder="New Password" value={newPass} onChange={(e) => setNewPass(e.target.value)} />
-                                        <input type="password" className="input" placeholder="Confirm Password" value={confirmPass} onChange={(e) => setConfirmPass(e.target.value)} />
-
-                                        <button className="btn" onClick={updatePassword}>Update Password</button>
-                                    </div>
-
-                                    <div className="section">
-                                        <h4>Delete Account</h4>
-
-                                        <input
-                                            type="password"
-                                            className="input"
-                                            placeholder="Enter password"
-                                            value={deletePass}
-                                            onChange={(e) => setDeletePass(e.target.value)}
-                                        />
-
-                                        <button className="btn btn-danger" onClick={deleteUser}>
-                                            Delete Account
-                                        </button>
-                                    </div>
-
+                                    <DeleteAccountForm onSubmit={deleteUser} />
                                 </div>
 
                             </div>

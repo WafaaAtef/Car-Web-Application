@@ -69,13 +69,12 @@ const update_password = async (req, res) => {
         const token = req.cookies.token;
 
         const { old_password, new_password, confirm_password } = req.body;
+
         if (!old_password || !new_password || !confirm_password) {
                 return res.status(400).json({ message: "All fields are required" });
         }
 
-        if (new_password !== confirm_password) {
-                return res.status(400).json({ message: "Passwords do not match" });
-        }
+
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
         const user_id = decoded.id;
@@ -85,6 +84,24 @@ const update_password = async (req, res) => {
         const r = await bcrypt.compare(old_password, user.password);
         if (!r) {
                 return res.status(400).json({ message: "Wrong password" });
+        }
+        if (new_password !== confirm_password) {
+                return res.status(400).json({ message: "Passwords do not match" });
+        }
+        if (new_password.length < 8) {
+                return res.status(400).json({ message: "Password must be at least 8 characters long" });
+        }
+        if (!new_password.match(/[A-Z]/)) {
+                return res.status(400).json({ message: "Password must contain at least one uppercase letter" });
+        }
+        if (!new_password.match(/[a-z]/)) {
+                return res.status(400).json({ message: "Password must contain at least one lowercase letter" });
+        }
+        if (!new_password.match(/[0-9]/)) {
+                return res.status(400).json({ message: "Password must contain at least one number" });
+        }
+        if (!new_password.match(/[@$!%*?&]/)) {
+                return res.status(400).json({ message: "Password must contain at least one special character" });
         }
         user.password = new_password;
         await user.save();
@@ -117,6 +134,14 @@ const update_profile_image = async (req, res) => {
 
         if (!req.file) {
                 return res.status(400).json({ message: "No image uploaded" });
+        }
+        if (user.profileImage) {
+                const imagePath = path.join(__dirname, "../..", user.profileImage);
+
+
+                if (fs.existsSync(imagePath)) {
+                        fs.unlinkSync(imagePath);
+                }
         }
 
         user.profileImage = `/uploads/profile_photo/${req.file.filename}`;
