@@ -14,7 +14,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n\"firstname\":\"ahmed\",\r\n\"lastname\":\"khalil\",\r\n\"username\":\"ahmedkhalil\",\r\n\"email\":\"itskhalil@wearehackerone.com\",\r\n\"password\":\"Aa0123456789@\"\r\n}",
+          "raw": "{\r\n\"firstname\":\"Ahmed\",\r\n\"lastname\":\"Khalil\",\r\n\"username\":\"ahmedkhalil\",\r\n\"email\":\"itskhalil@gmail.com\",\r\n\"password\":\"Aa0123456789@\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -22,12 +22,12 @@
           }
         },
         "url": {
-          "raw": "http://localhost:3000/api/auth/register",
+          "raw": "http://localhost:5000/api/auth/register",
           "protocol": "http",
           "host": [
             "localhost"
           ],
-          "port": "3000",
+          "port": "5000",
           "path": [
             "api",
             "auth",
@@ -43,7 +43,92 @@
           ]
         }
       },
-      "response": []
+      "response": [
+        {
+          "name": "register",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n\"firstname\":\"ahmed\",\r\n\"lastname\":\"khalil\",\r\n\"username\":\"ahmedkhalil1\",\r\n\"email\":\"itskhalil@gmail.com\",\r\n\"password\":\"Aa0123456789@\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "http://localhost:3000"
+            },
+            {
+              "key": "Vary",
+              "value": "Origin"
+            },
+            {
+              "key": "Access-Control-Allow-Credentials",
+              "value": "true"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "30"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"1e-Er/tIF12P+6YRbj3Y7Fb4zoE6Bc\""
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 13:03:33 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"status\": 201,\n    \"msg\": \"created\"\n}"
+        }
+      ]
     },
     {
       "name": "login",
@@ -55,7 +140,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"email\":\"itskhalil@wearehackerone.com\",\r\n    \"password\":\"Aa0123456789@\"\r\n}",
+          "raw": "{\r\n    \"email\": \"itskhalil@gmail.com\",\r\n    \"password\": \"Aa0123456789@\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -63,12 +148,12 @@
           }
         },
         "url": {
-          "raw": "http://localhost:3000/api/auth/login",
+          "raw": "http://localhost:5000/api/auth/login",
           "protocol": "http",
           "host": [
             "localhost"
           ],
-          "port": "3000",
+          "port": "5000",
           "path": [
             "api",
             "auth",
@@ -84,7 +169,96 @@
           ]
         }
       },
-      "response": []
+      "response": [
+        {
+          "name": "login",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"itskhalil@gmail.com\",\r\n    \"password\": \"Aa0123456789@\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "http://localhost:3000"
+            },
+            {
+              "key": "Vary",
+              "value": "Origin"
+            },
+            {
+              "key": "Access-Control-Allow-Credentials",
+              "value": "true"
+            },
+            {
+              "key": "Set-Cookie",
+              "value": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMDcxOWE0ZTg1NDkzZDgyYjczMWQ0YyIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3ODg1MDM0OCwiZXhwIjoxNzc4ODUzOTQ4fQ.WFZe0G9--Mm5-eW5qEXkxx8he_sOLZNlBi0FI5nBnX8; Max-Age=3600; Path=/; Expires=Fri, 15 May 2026 14:05:48 GMT; HttpOnly; SameSite=Strict"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "36"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"24-Jbi4ic8QxMiC9ZmVzmuoCSJoBS4\""
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 13:05:48 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"status\": 200,\n    \"data\": \"ahmedkhalil1\"\n}"
+        }
+      ]
     },
     {
       "name": "get_profile",
@@ -95,20 +269,86 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:3000/api/profile/me",
+          "raw": "http://localhost:5000/api/user",
           "protocol": "http",
           "host": [
             "localhost"
           ],
-          "port": "3000",
+          "port": "5000",
           "path": [
             "api",
-            "profile",
-            "me"
+            "user"
           ]
         }
       },
-      "response": []
+      "response": [
+        {
+          "name": "get_profile",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/user",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "user"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "http://localhost:3000"
+            },
+            {
+              "key": "Vary",
+              "value": "Origin"
+            },
+            {
+              "key": "Access-Control-Allow-Credentials",
+              "value": "true"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "162"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"a2-S04t33j25RJXIT3qq48Tp3Qupig\""
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 13:05:58 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": \"6a0719a4e85493d82b731d4c\",\n    \"firstname\": \"ahmed\",\n    \"lastname\": \"khalil\",\n    \"username\": \"ahmedkhalil1\",\n    \"email\": \"itskhalil@gmail.com\",\n    \"phone\": null,\n    \"profileImage\": null\n}"
+        }
+      ]
     },
     {
       "name": "update_profile",
@@ -120,7 +360,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "",
+          "raw": "{\r\n    \"firstname\": \"ahmed\",\r\n    \"lastname\": \"khalil\",\r\n    \"phone\":\"+201023456789\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -128,20 +368,95 @@
           }
         },
         "url": {
-          "raw": "http://localhost:3000/api/profile/me",
+          "raw": "http://localhost:5000/api/user",
           "protocol": "http",
           "host": [
             "localhost"
           ],
-          "port": "3000",
+          "port": "5000",
           "path": [
             "api",
-            "profile",
-            "me"
+            "user"
           ]
         }
       },
-      "response": []
+      "response": [
+        {
+          "name": "update_profile",
+          "originalRequest": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\": \"ahmed\",\r\n    \"lastname\": \"khalil\",\r\n    \"phone\":\"+201023456789\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/user",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "user"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "http://localhost:3000"
+            },
+            {
+              "key": "Vary",
+              "value": "Origin"
+            },
+            {
+              "key": "Access-Control-Allow-Credentials",
+              "value": "true"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "121"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"79-acqBntKuGIf8GjpUNP8vbHSLi+8\""
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 13:12:02 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"firstname\": \"ahmed\",\n    \"lastname\": \"khalil\",\n    \"username\": \"ahmedkhalil1\",\n    \"email\": \"itskhalil@gmail.com\",\n    \"phone\": \"+201023456789\"\n}"
+        }
+      ]
     },
     {
       "name": "delete_profile",
@@ -151,17 +466,25 @@
         },
         "method": "DELETE",
         "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"password\":\"Aa0123456789@\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
         "url": {
-          "raw": "http://localhost:3000/api/profile/me",
+          "raw": "http://localhost:5000/api/user",
           "protocol": "http",
           "host": [
             "localhost"
           ],
-          "port": "3000",
+          "port": "5000",
           "path": [
             "api",
-            "profile",
-            "me"
+            "user"
           ],
           "query": [
             {
@@ -173,7 +496,95 @@
           ]
         }
       },
-      "response": []
+      "response": [
+        {
+          "name": "delete_profile",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"password\":\"Aa0123456789@\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/user",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "user"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "http://localhost:3000"
+            },
+            {
+              "key": "Vary",
+              "value": "Origin"
+            },
+            {
+              "key": "Access-Control-Allow-Credentials",
+              "value": "true"
+            },
+            {
+              "key": "Set-Cookie",
+              "value": "token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "39"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"27-27o4zzUjhHNmthTJyia4gBCjpos\""
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 14:32:50 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"message\": \"User deleted successfully\"\n}"
+        }
+      ]
     },
     {
       "name": "update_profile_email",
@@ -185,7 +596,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"email\": \"itsKhalil+1@wearehackerone.com\",\r\n    \"password\":\"Aa0123456789@\"\r\n}",
+          "raw": "{\r\n    \"email\": \"itsKhalil@gmail.com\",\r\n    \"password\":\"Aa0123456789@\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -193,21 +604,255 @@
           }
         },
         "url": {
-          "raw": "http://localhost:3000/api/profile/me/email",
+          "raw": "http://localhost:5000/api/user/email",
           "protocol": "http",
           "host": [
             "localhost"
           ],
-          "port": "3000",
+          "port": "5000",
           "path": [
             "api",
-            "profile",
-            "me",
+            "user",
             "email"
           ]
         }
       },
-      "response": []
+      "response": [
+        {
+          "name": "update_profile_email",
+          "originalRequest": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"itsKhalil@gmail.com\",\r\n    \"password\":\"Aa0123456@\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/user/email",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "user",
+                "email"
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": "",
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "http://localhost:3000"
+            },
+            {
+              "key": "Vary",
+              "value": "Origin"
+            },
+            {
+              "key": "Access-Control-Allow-Credentials",
+              "value": "true"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "34"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"22-7E/nw4NTj1wudq/7GNEsO0zIZHQ\""
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 13:07:18 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [
+            {
+              "expires": "Invalid Date",
+              "domain": "",
+              "path": ""
+            }
+          ],
+          "body": "{\n    \"message\": \"Email already in use\"\n}"
+        },
+        {
+          "name": "update_profile_email",
+          "originalRequest": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"itsKhalil1@gmail.com\",\r\n    \"password\":\"Aa0123456@\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/user/email",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "user",
+                "email"
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "http://localhost:3000"
+            },
+            {
+              "key": "Vary",
+              "value": "Origin"
+            },
+            {
+              "key": "Access-Control-Allow-Credentials",
+              "value": "true"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "28"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"1c-1DgWgAxsia6W2YD8mP0Sbp4yZkI\""
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 13:10:07 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"message\": \"Wrong password\"\n}"
+        },
+        {
+          "name": "update_profile_email",
+          "originalRequest": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"itsKhalil@gmail.com\",\r\n    \"password\":\"Aa0123456789@\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/user/email",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "user",
+                "email"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "http://localhost:3000"
+            },
+            {
+              "key": "Vary",
+              "value": "Origin"
+            },
+            {
+              "key": "Access-Control-Allow-Credentials",
+              "value": "true"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "40"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"28-4jrC6rrixqpum+33M98BIAuRIOI\""
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 13:11:30 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"message\": \"Email updated successfully\"\n}"
+        }
+      ]
     },
     {
       "name": "update_profile_password",
@@ -219,7 +864,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n  \"old_password\": \"Aa0147852369@\",\r\n  \"new_password\": \"Aa0123456789@\",\r\n  \"confirm_password\": \"Aa0123456789@\"\r\n}",
+          "raw": "{\r\n  \"old_password\": \"Aa0123456789@\",\r\n  \"new_password\": \"Aa0147852369@\",\r\n  \"confirm_password\": \"Aa0147852369@\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -227,21 +872,1034 @@
           }
         },
         "url": {
-          "raw": "http://localhost:3000/api/profile/me/password",
+          "raw": "http://localhost:5000/api/user/password",
           "protocol": "http",
           "host": [
             "localhost"
           ],
-          "port": "3000",
+          "port": "5000",
           "path": [
             "api",
-            "profile",
-            "me",
+            "user",
             "password"
           ]
         }
       },
-      "response": []
+      "response": [
+        {
+          "name": "update_profile_password",
+          "originalRequest": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"old_password\": \"Aa0147852369@\",\r\n  \"new_password\": \"Aa0123456789@\",\r\n  \"confirm_password\": \"Aa0123456789@\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/user/password",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "user",
+                "password"
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "http://localhost:3000"
+            },
+            {
+              "key": "Vary",
+              "value": "Origin"
+            },
+            {
+              "key": "Access-Control-Allow-Credentials",
+              "value": "true"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "28"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"1c-1DgWgAxsia6W2YD8mP0Sbp4yZkI\""
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 13:12:20 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"message\": \"Wrong password\"\n}"
+        },
+        {
+          "name": "update_profile_password",
+          "originalRequest": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"old_password\": \"Aa0123456789@\",\r\n  \"new_password\": \"Aa012345678@\",\r\n  \"confirm_password\": \"Aa0123456789@\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/user/password",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "user",
+                "password"
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "http://localhost:3000"
+            },
+            {
+              "key": "Vary",
+              "value": "Origin"
+            },
+            {
+              "key": "Access-Control-Allow-Credentials",
+              "value": "true"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "36"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"24-N6uFjuN5oLJQsoX+l0WGxyl2HG4\""
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 13:12:43 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"message\": \"Passwords do not match\"\n}"
+        },
+        {
+          "name": "update_profile_password",
+          "originalRequest": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"old_password\": \"Aa0123456789@\",\r\n  \"new_password\": \"Aa0147852369@\",\r\n  \"confirm_password\": \"Aa0147852369@\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/user/password",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "user",
+                "password"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "http://localhost:3000"
+            },
+            {
+              "key": "Vary",
+              "value": "Origin"
+            },
+            {
+              "key": "Access-Control-Allow-Credentials",
+              "value": "true"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "43"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"2b-1leFLxO9pvRJ4B0CZIygDRcnOKs\""
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 13:13:16 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"message\": \"Password updated successfully\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "update_photo_profile",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "image",
+              "type": "file",
+              "uuid": "e4218b10-53be-4bf7-a46a-610811fef16b",
+              "src": "postman-cloud:///1f150647-257b-4ba0-a4e5-a8009c65f292"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/user/profile-image",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "user",
+            "profile-image"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "update_photo_profile",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "image",
+                  "type": "file",
+                  "uuid": "e4218b10-53be-4bf7-a46a-610811fef16b",
+                  "src": "postman-cloud:///1f150647-257b-4ba0-a4e5-a8009c65f292"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/user/profile-image",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "user",
+                "profile-image"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "http://localhost:3000"
+            },
+            {
+              "key": "Vary",
+              "value": "Origin"
+            },
+            {
+              "key": "Access-Control-Allow-Credentials",
+              "value": "true"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "116"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"74-YDWv4gir2Up560q0g/y6ECPocqc\""
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 13:53:45 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"message\": \"Profile image updated successfully\",\n    \"image\": \"/uploads/profile_photo/profile_1778853225092_67582113.png\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "get_cars",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/cars",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "cars"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "get_cars",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/cars",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "cars"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "http://localhost:3000"
+            },
+            {
+              "key": "Vary",
+              "value": "Origin"
+            },
+            {
+              "key": "Access-Control-Allow-Credentials",
+              "value": "true"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "6501"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"1965-kIvBsv6JcT8wCvUgHG2x+sPwLoE\""
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 13:21:26 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n    {\n        \"_id\": \"69fe3ed3a47f07fe7e3e0ad7\",\n        \"brand\": \"BMW\",\n        \"model\": \"M3 comptition\",\n        \"year\": 2022,\n        \"price\": 180000000,\n        \"fuelType\": \"petrol\",\n        \"transmission\": \"automatic\",\n        \"condition\": \"used\",\n        \"images\": [\n            \"/uploads/car_1778269907789_444262391.jpeg\"\n        ],\n        \"status\": \"available\",\n        \"createdAt\": \"2026-05-08T19:51:47.806Z\",\n        \"updatedAt\": \"2026-05-08T19:56:34.337Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"69fe3f9ca47f07fe7e3e0ad8\",\n        \"brand\": \"range rover\",\n        \"model\": \"villar\",\n        \"year\": 2017,\n        \"price\": 1850000,\n        \"fuelType\": \"petrol\",\n        \"transmission\": \"automatic\",\n        \"condition\": \"used\",\n        \"images\": [\n            \"/uploads/car_1778270108304_959809271.jpg\"\n        ],\n        \"status\": \"available\",\n        \"createdAt\": \"2026-05-08T19:55:08.306Z\",\n        \"updatedAt\": \"2026-05-08T19:55:08.306Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"69fe601aa47f07fe7e3e0ada\",\n        \"brand\": \"Audi S8\",\n        \"model\": \"Talladega R\",\n        \"year\": 2017,\n        \"price\": 8440000,\n        \"fuelType\": \"petrol\",\n        \"transmission\": \"automatic\",\n        \"condition\": \"used\",\n        \"images\": [\n            \"/uploads/car_1778278426820_695874120.jpg\"\n        ],\n        \"status\": \"available\",\n        \"createdAt\": \"2026-05-08T22:13:46.823Z\",\n        \"updatedAt\": \"2026-05-08T22:13:46.823Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"69fe6157a47f07fe7e3e0adb\",\n        \"brand\": \"mercedes\",\n        \"model\": \"SLK55 AMG\",\n        \"year\": 2011,\n        \"price\": 1800000,\n        \"fuelType\": \"petrol\",\n        \"transmission\": \"automatic\",\n        \"condition\": \"used\",\n        \"images\": [\n            \"/uploads/car_1778278743960_665912262.jpg\"\n        ],\n        \"status\": \"available\",\n        \"createdAt\": \"2026-05-08T22:19:03.961Z\",\n        \"updatedAt\": \"2026-05-08T22:19:03.961Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"69fe61daa47f07fe7e3e0adc\",\n        \"brand\": \"MCLAREN\",\n        \"model\": \"720S\",\n        \"year\": 2023,\n        \"price\": 15000000,\n        \"fuelType\": \"petrol\",\n        \"transmission\": \"automatic\",\n        \"condition\": \"used\",\n        \"images\": [\n            \"/uploads/car_1778278874576_183246996.jpg\"\n        ],\n        \"status\": \"available\",\n        \"createdAt\": \"2026-05-08T22:21:14.577Z\",\n        \"updatedAt\": \"2026-05-08T22:21:14.577Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"69fe6240a47f07fe7e3e0add\",\n        \"brand\": \"FORD MUSTANG\",\n        \"model\": \"GT\",\n        \"year\": 2012,\n        \"price\": 16000000,\n        \"fuelType\": \"petrol\",\n        \"transmission\": \"automatic\",\n        \"condition\": \"used\",\n        \"images\": [\n            \"/uploads/car_1778278976810_781155498.jpg\"\n        ],\n        \"status\": \"available\",\n        \"createdAt\": \"2026-05-08T22:22:56.811Z\",\n        \"updatedAt\": \"2026-05-08T22:22:56.811Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"69fe628aa47f07fe7e3e0ade\",\n        \"brand\": \"BMW\",\n        \"model\": \"F30\",\n        \"year\": 2019,\n        \"price\": 15000000,\n        \"fuelType\": \"petrol\",\n        \"transmission\": \"automatic\",\n        \"condition\": \"used\",\n        \"images\": [\n            \"/uploads/car_1778279050634_225030877.jpg\"\n        ],\n        \"status\": \"available\",\n        \"createdAt\": \"2026-05-08T22:24:10.636Z\",\n        \"updatedAt\": \"2026-05-08T22:24:10.636Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"69fe62f5a47f07fe7e3e0adf\",\n        \"brand\": \"ALFA ROMEO\",\n        \"model\": \"4C\",\n        \"year\": 2020,\n        \"price\": 2300000,\n        \"fuelType\": \"petrol\",\n        \"transmission\": \"automatic\",\n        \"condition\": \"used\",\n        \"images\": [\n            \"/uploads/car_1778279157330_370156005.jpg\"\n        ],\n        \"status\": \"available\",\n        \"createdAt\": \"2026-05-08T22:25:57.333Z\",\n        \"updatedAt\": \"2026-05-08T22:25:57.333Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"69fe6354a47f07fe7e3e0ae0\",\n        \"brand\": \"JEEP\",\n        \"model\": \"WRANGLER RUBICON\",\n        \"year\": 2021,\n        \"price\": 1800000,\n        \"fuelType\": \"petrol\",\n        \"transmission\": \"automatic\",\n        \"condition\": \"used\",\n        \"images\": [\n            \"/uploads/car_1778279252528_269712822.jpg\"\n        ],\n        \"status\": \"available\",\n        \"createdAt\": \"2026-05-08T22:27:32.530Z\",\n        \"updatedAt\": \"2026-05-08T22:27:32.530Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"69fe63d5a47f07fe7e3e0ae1\",\n        \"brand\": \"mercedes\",\n        \"model\": \"AMG GT\",\n        \"year\": 2024,\n        \"price\": 17000000,\n        \"fuelType\": \"petrol\",\n        \"transmission\": \"automatic\",\n        \"condition\": \"used\",\n        \"images\": [\n            \"/uploads/car_1778279381031_149708061.jpg\"\n        ],\n        \"status\": \"available\",\n        \"createdAt\": \"2026-05-08T22:29:41.034Z\",\n        \"updatedAt\": \"2026-05-08T22:29:41.034Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"69fe644fa47f07fe7e3e0ae2\",\n        \"brand\": \"AUDI\",\n        \"model\": \"A3\",\n        \"year\": 2013,\n        \"price\": 920000,\n        \"fuelType\": \"petrol\",\n        \"transmission\": \"automatic\",\n        \"condition\": \"used\",\n        \"images\": [\n            \"/uploads/car_1778279503793_414779191.jpg\"\n        ],\n        \"status\": \"available\",\n        \"createdAt\": \"2026-05-08T22:31:43.794Z\",\n        \"updatedAt\": \"2026-05-08T22:31:43.794Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"69fe64d8a47f07fe7e3e0ae3\",\n        \"brand\": \"CHEVROLET CORVETTE\",\n        \"model\": \"GRAND SPORT\",\n        \"year\": 2017,\n        \"price\": 3100000,\n        \"fuelType\": \"petrol\",\n        \"transmission\": \"automatic\",\n        \"condition\": \"used\",\n        \"images\": [\n            \"/uploads/car_1778279640138_850061010.jpg\"\n        ],\n        \"status\": \"available\",\n        \"createdAt\": \"2026-05-08T22:34:00.139Z\",\n        \"updatedAt\": \"2026-05-08T22:34:00.139Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"69fe6542a47f07fe7e3e0ae4\",\n        \"brand\": \"LOUTS ELETRE\",\n        \"model\": \"ELETRE S\",\n        \"year\": 2024,\n        \"price\": 9000000,\n        \"fuelType\": \"petrol\",\n        \"transmission\": \"automatic\",\n        \"condition\": \"used\",\n        \"images\": [\n            \"/uploads/car_1778279746934_905766884.jpeg\"\n        ],\n        \"status\": \"available\",\n        \"createdAt\": \"2026-05-08T22:35:46.936Z\",\n        \"updatedAt\": \"2026-05-08T22:35:46.936Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"69fe65cca47f07fe7e3e0ae5\",\n        \"brand\": \"FORD\",\n        \"model\": \"DARK HORSE\",\n        \"year\": 2024,\n        \"price\": 7000000,\n        \"fuelType\": \"petrol\",\n        \"transmission\": \"automatic\",\n        \"condition\": \"used\",\n        \"images\": [\n            \"/uploads/car_1778279884912_78290363.jpeg\"\n        ],\n        \"status\": \"available\",\n        \"createdAt\": \"2026-05-08T22:38:04.914Z\",\n        \"updatedAt\": \"2026-05-08T22:38:04.914Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"69fe6632a47f07fe7e3e0ae6\",\n        \"brand\": \"CHEVROLET CORVETTE\",\n        \"model\": \"C8\",\n        \"year\": 2023,\n        \"price\": 7500000,\n        \"fuelType\": \"petrol\",\n        \"transmission\": \"automatic\",\n        \"condition\": \"used\",\n        \"images\": [\n            \"/uploads/car_1778279986383_754269147.jpeg\"\n        ],\n        \"status\": \"available\",\n        \"createdAt\": \"2026-05-08T22:39:46.384Z\",\n        \"updatedAt\": \"2026-05-08T22:39:46.384Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"69fe66eca47f07fe7e3e0ae7\",\n        \"brand\": \"LOUTS ELETRE\",\n        \"model\": \"EVIJA\",\n        \"year\": 2023,\n        \"price\": 113000000,\n        \"fuelType\": \"petrol\",\n        \"transmission\": \"automatic\",\n        \"condition\": \"used\",\n        \"images\": [\n            \"/uploads/car_1778280172216_208592996.jpeg\"\n        ],\n        \"status\": \"available\",\n        \"createdAt\": \"2026-05-08T22:42:52.217Z\",\n        \"updatedAt\": \"2026-05-08T22:42:52.217Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"69fe6761a47f07fe7e3e0ae8\",\n        \"brand\": \"Audi\",\n        \"model\": \"Q6 E-TRON\",\n        \"year\": 2025,\n        \"price\": 4100000,\n        \"fuelType\": \"petrol\",\n        \"transmission\": \"automatic\",\n        \"condition\": \"used\",\n        \"images\": [\n            \"/uploads/car_1778280289757_653485814.jpeg\"\n        ],\n        \"status\": \"available\",\n        \"createdAt\": \"2026-05-08T22:44:49.758Z\",\n        \"updatedAt\": \"2026-05-08T22:44:49.758Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"69fe6a86a47f07fe7e3e0ae9\",\n        \"brand\": \"BMW\",\n        \"model\": \"M340i\",\n        \"year\": 2023,\n        \"price\": 4800000,\n        \"fuelType\": \"petrol\",\n        \"transmission\": \"automatic\",\n        \"condition\": \"used\",\n        \"images\": [\n            \"/uploads/car_1778281094352_183133809.webp\"\n        ],\n        \"status\": \"available\",\n        \"createdAt\": \"2026-05-08T22:58:14.353Z\",\n        \"updatedAt\": \"2026-05-08T22:58:14.353Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"69fe6aeea47f07fe7e3e0aea\",\n        \"brand\": \"BUGATTI\",\n        \"model\": \"LA VOITURE NOIRE\",\n        \"year\": 2021,\n        \"price\": 870000000,\n        \"fuelType\": \"petrol\",\n        \"transmission\": \"automatic\",\n        \"condition\": \"used\",\n        \"images\": [\n            \"/uploads/car_1778281198503_543008567.webp\"\n        ],\n        \"status\": \"available\",\n        \"createdAt\": \"2026-05-08T22:59:58.505Z\",\n        \"updatedAt\": \"2026-05-08T22:59:58.505Z\",\n        \"__v\": 0\n    },\n    {\n        \"status\": \"available\",\n        \"_id\": \"69fe8b57da1ae32b10083499\",\n        \"brand\": \"range rover\",\n        \"model\": \"svr\",\n        \"year\": 2022,\n        \"price\": 8000000,\n        \"images\": [\n            \"/uploads/car_1778289495272_191760910.jpeg\"\n        ],\n        \"createdAt\": \"2026-05-09T01:18:15.280Z\",\n        \"updatedAt\": \"2026-05-09T01:18:15.280Z\",\n        \"__v\": 0\n    }\n]"
+        }
+      ]
+    },
+    {
+      "name": "get_car_id",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/cars/69fe3ed3a47f07fe7e3e0ad7",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "cars",
+            "69fe3ed3a47f07fe7e3e0ad7"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "get_car_id",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/cars/69fe3ed3a47f07fe7e3e0ad7",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "cars",
+                "69fe3ed3a47f07fe7e3e0ad7"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "http://localhost:3000"
+            },
+            {
+              "key": "Vary",
+              "value": "Origin"
+            },
+            {
+              "key": "Access-Control-Allow-Credentials",
+              "value": "true"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "330"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"14a-1vVTRAbrB4bsk7J1+qx38FbAJm0\""
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 13:22:58 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"_id\": \"69fe3ed3a47f07fe7e3e0ad7\",\n    \"brand\": \"BMW\",\n    \"model\": \"M3 comptition\",\n    \"year\": 2022,\n    \"price\": 180000000,\n    \"fuelType\": \"petrol\",\n    \"transmission\": \"automatic\",\n    \"condition\": \"used\",\n    \"images\": [\n        \"/uploads/car_1778269907789_444262391.jpeg\"\n    ],\n    \"status\": \"available\",\n    \"createdAt\": \"2026-05-08T19:51:47.806Z\",\n    \"updatedAt\": \"2026-05-08T19:56:34.337Z\",\n    \"__v\": 0\n}"
+        }
+      ]
+    },
+    {
+      "name": "add_car",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "name",
+              "value": "Mercedes C300",
+              "type": "text",
+              "uuid": "82d88b04-ae0d-4a55-a59d-e3d9f72e7081"
+            },
+            {
+              "key": "model",
+              "value": "C300",
+              "type": "text"
+            },
+            {
+              "key": "price",
+              "value": "4000000",
+              "type": "text"
+            },
+            {
+              "key": "brand",
+              "value": "Mercedes",
+              "type": "text",
+              "uuid": "2ec490dd-3954-45bf-9f21-54e747ce65bf"
+            },
+            {
+              "key": "year",
+              "value": "2023",
+              "type": "text",
+              "uuid": "a3224415-a6c5-4bb8-9c0b-4412e77cdaa3"
+            },
+            {
+              "key": "location",
+              "value": "Cairo",
+              "type": "text",
+              "uuid": "ccfe2582-8686-4354-9b3a-9d88799b52cd"
+            },
+            {
+              "key": "images",
+              "type": "file",
+              "src": "postman-cloud:///1f15062e-19dd-4370-8daf-b8c15e6531ff"
+            },
+            {
+              "key": "status",
+              "value": "available",
+              "type": "text",
+              "uuid": "c987afe2-706e-48c0-be26-19d5dcc55d32"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/cars",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "cars"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "add_car",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "Mercedes C300",
+                  "type": "text",
+                  "uuid": "82d88b04-ae0d-4a55-a59d-e3d9f72e7081"
+                },
+                {
+                  "key": "model",
+                  "value": "C300",
+                  "type": "text"
+                },
+                {
+                  "key": "price",
+                  "value": "4000000",
+                  "type": "text"
+                },
+                {
+                  "key": "brand",
+                  "value": "Mercedes",
+                  "type": "text",
+                  "uuid": "2ec490dd-3954-45bf-9f21-54e747ce65bf"
+                },
+                {
+                  "key": "year",
+                  "value": "2023",
+                  "type": "text",
+                  "uuid": "a3224415-a6c5-4bb8-9c0b-4412e77cdaa3"
+                },
+                {
+                  "key": "location",
+                  "value": "Cairo",
+                  "type": "text",
+                  "uuid": "ccfe2582-8686-4354-9b3a-9d88799b52cd"
+                },
+                {
+                  "key": "images",
+                  "type": "file",
+                  "src": "postman-cloud:///1f15062e-19dd-4370-8daf-b8c15e6531ff"
+                },
+                {
+                  "key": "status",
+                  "value": "available",
+                  "type": "text",
+                  "uuid": "c987afe2-706e-48c0-be26-19d5dcc55d32"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/cars",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "cars"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "http://localhost:3000"
+            },
+            {
+              "key": "Vary",
+              "value": "Origin"
+            },
+            {
+              "key": "Access-Control-Allow-Credentials",
+              "value": "true"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "276"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"114-UYas+51F1imq5HeA581/wMvoe08\""
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 13:39:34 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"brand\": \"Mercedes\",\n    \"model\": \"C300\",\n    \"year\": 2023,\n    \"price\": 4000000,\n    \"images\": [\n        \"/uploads/car_1778852374188_538131768.jpg\"\n    ],\n    \"location\": \"Cairo\",\n    \"status\": \"available\",\n    \"_id\": \"6a072216e85493d82b731d4d\",\n    \"createdAt\": \"2026-05-15T13:39:34.201Z\",\n    \"updatedAt\": \"2026-05-15T13:39:34.201Z\",\n    \"__v\": 0\n}"
+        }
+      ]
+    },
+    {
+      "name": "update_car",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "name",
+              "value": "Mercedes C300",
+              "type": "text",
+              "uuid": "82d88b04-ae0d-4a55-a59d-e3d9f72e7081"
+            },
+            {
+              "key": "model",
+              "value": "C300",
+              "type": "text"
+            },
+            {
+              "key": "price",
+              "value": "2000000",
+              "type": "text"
+            },
+            {
+              "key": "brand",
+              "value": "Mercedes",
+              "type": "text",
+              "uuid": "2ec490dd-3954-45bf-9f21-54e747ce65bf"
+            },
+            {
+              "key": "year",
+              "value": "2023",
+              "type": "text",
+              "uuid": "a3224415-a6c5-4bb8-9c0b-4412e77cdaa3"
+            },
+            {
+              "key": "location",
+              "value": "Cairo",
+              "type": "text",
+              "uuid": "ccfe2582-8686-4354-9b3a-9d88799b52cd"
+            },
+            {
+              "key": "images",
+              "type": "file",
+              "src": "postman-cloud:///1f15062e-19dd-4370-8daf-b8c15e6531ff"
+            },
+            {
+              "key": "status",
+              "value": "available",
+              "type": "text",
+              "uuid": "c987afe2-706e-48c0-be26-19d5dcc55d32"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/cars/6a072216e85493d82b731d4d",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "cars",
+            "6a072216e85493d82b731d4d"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "update_car",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "Mercedes C300",
+                  "type": "text",
+                  "uuid": "82d88b04-ae0d-4a55-a59d-e3d9f72e7081"
+                },
+                {
+                  "key": "model",
+                  "value": "C300",
+                  "type": "text"
+                },
+                {
+                  "key": "price",
+                  "value": "2000000",
+                  "type": "text"
+                },
+                {
+                  "key": "brand",
+                  "value": "Mercedes",
+                  "type": "text",
+                  "uuid": "2ec490dd-3954-45bf-9f21-54e747ce65bf"
+                },
+                {
+                  "key": "year",
+                  "value": "2023",
+                  "type": "text",
+                  "uuid": "a3224415-a6c5-4bb8-9c0b-4412e77cdaa3"
+                },
+                {
+                  "key": "location",
+                  "value": "Cairo",
+                  "type": "text",
+                  "uuid": "ccfe2582-8686-4354-9b3a-9d88799b52cd"
+                },
+                {
+                  "key": "images",
+                  "type": "file",
+                  "src": "postman-cloud:///1f15062e-19dd-4370-8daf-b8c15e6531ff"
+                },
+                {
+                  "key": "status",
+                  "value": "available",
+                  "type": "text",
+                  "uuid": "c987afe2-706e-48c0-be26-19d5dcc55d32"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/cars/6a072216e85493d82b731d4d",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "cars",
+                "6a072216e85493d82b731d4d"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "http://localhost:3000"
+            },
+            {
+              "key": "Vary",
+              "value": "Origin"
+            },
+            {
+              "key": "Access-Control-Allow-Credentials",
+              "value": "true"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "319"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"13f-2BD84PsQBQxjoREfaI5euDl9lMo\""
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 13:57:44 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"_id\": \"6a072216e85493d82b731d4d\",\n    \"brand\": \"Mercedes\",\n    \"model\": \"C300\",\n    \"year\": 2023,\n    \"price\": 2000000,\n    \"images\": [\n        \"/uploads/car_1778852374188_538131768.jpg\",\n        \"/uploads/car_1778853464375_426953718.jpg\"\n    ],\n    \"location\": \"Cairo\",\n    \"status\": \"available\",\n    \"createdAt\": \"2026-05-15T13:39:34.201Z\",\n    \"updatedAt\": \"2026-05-15T13:57:44.460Z\",\n    \"__v\": 0\n}"
+        }
+      ]
+    },
+    {
+      "name": "delete_car",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:5000/api/cars/6a072216e85493d82b731d4d",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "cars",
+            "6a072216e85493d82b731d4d"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "delete_car",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5000/api/cars/6a072216e85493d82b731d4d",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "cars",
+                "6a072216e85493d82b731d4d"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "http://localhost:3000"
+            },
+            {
+              "key": "Vary",
+              "value": "Origin"
+            },
+            {
+              "key": "Access-Control-Allow-Credentials",
+              "value": "true"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "25"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"19-1E/kfyZ586NnqUEXgTN4oHmqRNg\""
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 13:58:35 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"message\": \"Car deleted\"\n}"
+        }
+      ]
     }
   ]
 }

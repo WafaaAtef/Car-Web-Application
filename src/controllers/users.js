@@ -1,6 +1,8 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const fs = require("fs");
+const path = require("path");
 
 const get_user = async (req, res) => {
         const token = req.cookies.token;
@@ -17,12 +19,23 @@ const delete_user = async (req, res) => {
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const user_id = decoded.id;
-        const { old_password } = req.body;
+        const { password } = req.body;
+        if (!password) {
+                return res.status(400).json({ message: "Password is required" });
+        }
         const user = await User.findById(user_id);
 
-        const r = await bcrypt.compare(old_password, user.password);
+        const r = await bcrypt.compare(password, user.password);
         if (!r) {
                 return res.status(400).json({ message: "Wrong password" });
+        }
+        if (user.profileImage) {
+                const imagePath = path.join(__dirname, "../..", user.profileImage);
+
+
+                if (fs.existsSync(imagePath)) {
+                        fs.unlinkSync(imagePath);
+                }
         }
         const deletedUser = await User.findByIdAndDelete(user_id);
         res.clearCookie('token');
@@ -33,6 +46,9 @@ const delete_user = async (req, res) => {
 const update_email = async (req, res) => {
         const token = req.cookies.token;
         const { password, email } = req.body;
+        if (!password || !email) {
+                return res.status(400).json({ message: "Password and email are required" });
+        }
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const user_id = decoded.id;
         const user = await User.findById(user_id);
@@ -53,6 +69,9 @@ const update_password = async (req, res) => {
         const token = req.cookies.token;
 
         const { old_password, new_password, confirm_password } = req.body;
+        if (!old_password || !new_password || !confirm_password) {
+                return res.status(400).json({ message: "All fields are required" });
+        }
 
         if (new_password !== confirm_password) {
                 return res.status(400).json({ message: "Passwords do not match" });
@@ -75,6 +94,9 @@ const update_password = async (req, res) => {
 const update_user = async (req, res) => {
         const token = req.cookies.token;
         const { firstname, lastname, phone } = req.body;
+        if (!firstname || !lastname) {
+                return res.status(400).json({ message: "Firstname and lastname are required" });
+        }
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const user_id = decoded.id;
         const user = await User.findById(user_id);

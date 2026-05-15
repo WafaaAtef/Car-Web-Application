@@ -318,7 +318,7 @@ function Profile() {
         formData.append("image", imageFile);
 
         const res = await fetch("/api/user/profile-image", {
-            method: "PATCH",
+            method: "POST",
             credentials: "include",
             body: formData,
         });
@@ -337,7 +337,7 @@ function Profile() {
         preview ||
         (profileImage
             ? `http://localhost:5000${profileImage}`
-            : "https://localhost:5000/uploads/profile_photo/images.png");
+            : "http://localhost:5000/uploads/profile_photo/images.png");
 
     return (
         <>
@@ -461,9 +461,9 @@ function Profile() {
                                     <div className="section">
                                         <h4>Password</h4>
 
-                                        <input type="password" className="input" placeholder="Old Password" />
-                                        <input type="password" className="input" placeholder="New Password" />
-                                        <input type="password" className="input" placeholder="Confirm Password" />
+                                        <input type="password" className="input" placeholder="Old Password" value={oldPass} onChange={(e) => setOldPass(e.target.value)} />
+                                        <input type="password" className="input" placeholder="New Password" value={newPass} onChange={(e) => setNewPass(e.target.value)} />
+                                        <input type="password" className="input" placeholder="Confirm Password" value={confirmPass} onChange={(e) => setConfirmPass(e.target.value)} />
 
                                         <button className="btn" onClick={updatePassword}>Update Password</button>
                                     </div>
