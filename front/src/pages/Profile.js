@@ -455,7 +455,7 @@ function Profile() {
 
     const logout = async () => {
 
-        await fetch("/api/logout", {
+        await fetch("/api/user/logout", {
             credentials: "include"
         });
         navigate("/login");
