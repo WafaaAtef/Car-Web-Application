@@ -288,12 +288,25 @@ function Dashboard() {
   };
 
   const fetchCars = async (query = "") => {
-    const res = await fetch(`/api/cars${query}`);
-    const data = await res.json();
-    setCars(data);
+    try {
+      const res = await fetch(`/api/cars${query}`);
+      if (!res.ok) {
+        console.error("Failed to fetch cars:", res.status);
+        setCars([]);
+        return;
+      }
+      const data = await res.json();
+      setCars(Array.isArray(data) ? data : []);
+    } catch (error) {
+      console.error("Error fetching cars:", error);
+      setCars([]);
+    }
   };
 
-  useEffect(() => { fetchCars(); fetchUser(); }, []);
+  useEffect(() => {
+    fetchCars();
+    fetchUser();
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (e) => {

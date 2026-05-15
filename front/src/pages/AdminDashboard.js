@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import CarCard from "../components/CarCards";
 import { useNavigate } from "react-router-dom";
 
@@ -183,7 +183,13 @@ function AdminDashboard() {
   const [requests, setRequests] = useState([]);
   const navigate = useNavigate();
 
-  const fetchUser = async () => {
+  const fetchCars = useCallback(async () => {
+    const res = await fetch("/api/cars");
+    const data = await res.json();
+    setCars(data);
+  }, []);
+
+  const fetchUser = useCallback(async () => {
     const res = await fetch("/api/user", {
       credentials: "include",
     });
@@ -196,27 +202,20 @@ function AdminDashboard() {
       navigate("/");
       return;
     }
-  };
+  }, [navigate]);
 
-  const fetchCars = async () => {
-    const res = await fetch("/api/cars");
-    const data = await res.json();
-    setCars(data);
-  };
-
-  const fetchRequests = async () => {
+  const fetchRequests = useCallback(async () => {
     const res = await fetch("/api/requests", { credentials: 'include' });
     if (!res.ok) return;
     const data = await res.json();
     setRequests(data.requests || []);
-  };
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => { 
-    fetchUser(); 
-    fetchCars(); 
-    fetchRequests(); 
   }, []);
+
+  useEffect(() => {
+    fetchUser();
+    fetchCars();
+    fetchRequests();
+  }, [fetchUser, fetchCars, fetchRequests]);
 
   const handleDelete = async (id) => {
     if (!window.confirm("Remove this vehicle from the showroom?")) return;
