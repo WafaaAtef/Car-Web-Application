@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import CarCard from "../components/CarCards";
 import { useNavigate } from "react-router-dom";
 
@@ -180,15 +180,42 @@ const styles = `
 
 function AdminDashboard() {
   const [cars, setCars] = useState([]);
+  const [requests, setRequests] = useState([]);
   const navigate = useNavigate();
 
-  const fetchCars = async () => {
+  const fetchCars = useCallback(async () => {
     const res = await fetch("/api/cars");
     const data = await res.json();
     setCars(data);
-  };
+  }, []);
 
-  useEffect(() => { fetchCars(); }, []);
+  const fetchUser = useCallback(async () => {
+    const res = await fetch("/api/user", {
+      credentials: "include",
+    });
+    if (res.status === 401) {
+      navigate("/");
+      return;
+    }
+    const data = await res.json();
+    if (data.role !== 'admin') {
+      navigate("/");
+      return;
+    }
+  }, [navigate]);
+
+  const fetchRequests = useCallback(async () => {
+    const res = await fetch("/api/requests", { credentials: 'include' });
+    if (!res.ok) return;
+    const data = await res.json();
+    setRequests(data.requests || []);
+  }, []);
+
+  useEffect(() => {
+    fetchUser();
+    fetchCars();
+    fetchRequests();
+  }, [fetchUser, fetchCars, fetchRequests]);
 
   const handleDelete = async (id) => {
     if (!window.confirm("Remove this vehicle from the showroom?")) return;
@@ -201,6 +228,32 @@ function AdminDashboard() {
 
   const handleEdit = (car) => {
     navigate(`/edit/${car._id}`, { state: car });
+  };
+
+  const handleApprove = async (requestId) => {
+    const res = await fetch(`/api/requests/${requestId}`, {
+      method: 'PATCH',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status: 'confirmed' })
+    });
+    if (res.ok) {
+      fetchRequests();
+      fetchCars();
+    }
+  };
+
+  const handleCancel = async (requestId) => {
+    const res = await fetch(`/api/requests/${requestId}`, {
+      method: 'PATCH',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status: 'cancelled' })
+    });
+    if (res.ok) {
+      fetchRequests();
+      fetchCars();
+    }
   };
 
   const avgPrice = cars.length
@@ -264,6 +317,41 @@ function AdminDashboard() {
                 <button className="btn-empty-add" onClick={() => navigate("/add")}>
                   + Add First Vehicle
                 </button>
+              </div>
+            )}
+          </div>
+
+          <div className="section-label" style={{ marginTop: '40px' }}>Requests for Approval</div>
+          <div className="cars-grid" style={{ gap: '18px' }}>
+            {requests.length > 0 ? (
+              requests.map((request) => (
+                <div key={request._id} style={{ background: '#0d0d0f', padding: '20px', borderRadius: '4px', minWidth: '280px', flex: '1 1 320px', border: '1px solid rgba(255,255,255,0.08)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+                    <div style={{ fontSize: '14px', color: '#c4a460', fontWeight: 700 }}>#{request._id.slice(-6)}</div>
+                    <div style={{ fontSize: '12px', color: request.status === 'confirmed' ? '#6fcf97' : request.status === 'cancelled' ? '#eb5757' : '#ffd166', fontWeight: 700 }}>
+                      {request.status.toUpperCase()}
+                    </div>
+                  </div>
+                  <div style={{ marginBottom: '8px', color: '#fff', fontWeight: 700 }}>{request.car?.brand} {request.car?.model}</div>
+                  <div style={{ fontSize: '12px', color: '#ddd', marginBottom: '4px' }}>Buyer: {request.buyer?.firstname || 'Unknown'} {request.buyer?.lastname || ''}</div>
+                  <div style={{ fontSize: '12px', color: '#ddd', marginBottom: '4px' }}>Price: {Number(request.price).toLocaleString('en-EG')} EGP</div>
+                  <div style={{ fontSize: '11px', color: '#999', marginBottom: '12px' }}>Requested on: {new Date(request.createdAt).toLocaleDateString()}</div>
+                  <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                    {request.status === 'pending' ? (
+                      <>
+                        <button onClick={() => handleApprove(request._id)} style={{ flex: '1', padding: '10px 12px', background: '#6fcf97', border: 'none', color: '#080809', borderRadius: '2px', cursor: 'pointer' }}>Approve</button>
+                        <button onClick={() => handleCancel(request._id)} style={{ flex: '1', padding: '10px 12px', background: '#eb5757', border: 'none', color: '#fff', borderRadius: '2px', cursor: 'pointer' }}>Cancel</button>
+                      </>
+                    ) : (
+                      <div style={{ width: '100%', padding: '10px 12px', background: '#141414', borderRadius: '2px', color: '#aaa' }}>No actions available</div>
+                    )}
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="empty-state" style={{ width: '100%', padding: '40px' }}>
+                <div className="empty-text">No requests yet</div>
+                <div className="empty-sub">Users will see their pending requests here once submitted.</div>
               </div>
             )}
           </div>

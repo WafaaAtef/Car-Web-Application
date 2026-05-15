@@ -91,7 +91,7 @@ const styles = `
 `;
 
 function AddCar() {
-  const [car, setCar] = useState({ brand: "", model: "", year: "", price: "" });
+  const [car, setCar] = useState({ brand: "", model: "", year: "", price: "", stock: 1 });
   const [image, setImage] = useState(null); // { file, preview }
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -230,7 +230,7 @@ function AddCar() {
                 </div>
               </div>
 
-              {/* Year & Price */}
+              {/* Year, Price & Stock */}
               <div className="field-group">
                 <div className="field">
                   <label className="field-label">Year</label>
@@ -239,6 +239,13 @@ function AddCar() {
                 <div className="field">
                   <label className="field-label">Price (EGP)</label>
                   <input className="field-input" name="price" type="number" placeholder="850000" value={car.price} onChange={handleChange} required />
+                </div>
+              </div>
+
+              <div className="field-group">
+                <div className="field">
+                  <label className="field-label">Stock</label>
+                  <input className="field-input" name="stock" type="number" min="0" value={car.stock} onChange={handleChange} required />
                 </div>
               </div>
 

@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const Request = require('../models/Request');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const fs = require("fs");
@@ -9,9 +10,10 @@ const get_user = async (req, res) => {
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const user_id = decoded.id;
-        const user = await User.findById(user_id);
+        const user = await User.findById(user_id).select('-password').lean();
+        const requests = await Request.find({ buyer: user_id }).populate('car');
 
-        return res.status(200).json({ id: user._id, firstname: user.firstname, lastname: user.lastname, username: user.username, email: user.email, phone: user.phone, profileImage: user.profileImage });
+        return res.status(200).json({ ...user, role: user.role, requests });
 };
 
 const delete_user = async (req, res) => {
