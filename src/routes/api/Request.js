@@ -4,7 +4,7 @@ const Request = require("../../models/Request");
 const Car = require("../../models/Cars");
 const { auth, isAdmin } = require('../../middleWares/authMiddleware');
 
-// Create new request
+
 router.post("/", auth, async (req, res) => {
   try {
     const { carId, price } = req.body;
@@ -46,7 +46,7 @@ router.post("/", auth, async (req, res) => {
   }
 });
 
-// Get all requests for admin approval
+
 router.get("/", auth, isAdmin, async (req, res) => {
   try {
     const requests = await Request.find().populate('car').populate('buyer').sort({ createdAt: -1 });
@@ -56,7 +56,7 @@ router.get("/", auth, isAdmin, async (req, res) => {
   }
 });
 
-// Get user's own requests
+
 router.get("/my", auth, async (req, res) => {
   try {
     const requests = await Request.find({ buyer: req.user.id }).populate('car').sort({ createdAt: -1 });
@@ -66,7 +66,7 @@ router.get("/my", auth, async (req, res) => {
   }
 });
 
-// Update request status - only admin can confirm
+
 router.patch("/:id", auth, isAdmin, async (req, res) => {
   try {
     const { status } = req.body;
