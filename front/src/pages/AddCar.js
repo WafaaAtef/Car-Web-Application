@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const styles = `
-  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=Barlow:wght@300;400;500&display=swap');
+const styles =
+ `
   * { box-sizing: border-box; }
   .addcar-page {
     font-family: 'Barlow', sans-serif;
@@ -92,7 +92,7 @@ const styles = `
 
 function AddCar() {
   const [car, setCar] = useState({ brand: "", model: "", year: "", price: "", stock: 1 });
-  const [image, setImage] = useState(null); // { file, preview }
+  const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
@@ -190,7 +190,6 @@ function AddCar() {
               )}
               {error && <div className="error-banner">{error}</div>}
 
-              {/* Single Image Upload */}
               <div className="field">
                 <label className="field-label">Photo</label>
                 <div className="upload-zone">
@@ -218,7 +217,6 @@ function AddCar() {
                 </div>
               </div>
 
-              {/* Brand & Model */}
               <div className="field-group">
                 <div className="field">
                   <label className="field-label">Brand</label>
@@ -230,7 +228,6 @@ function AddCar() {
                 </div>
               </div>
 
-              {/* Year, Price & Stock */}
               <div className="field-group">
                 <div className="field">
                   <label className="field-label">Year</label>

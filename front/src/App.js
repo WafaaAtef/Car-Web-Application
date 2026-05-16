@@ -1,4 +1,3 @@
-
 import { Routes, Route } from "react-router-dom";
 import AdminDashboard from "./pages/AdminDashboard";
 import AddCar from "./pages/AddCar";
@@ -14,11 +13,11 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<><Registeration /><Dashboard /></>} />
-        <Route path="/admin" element={<><Registeration /><AdminDashboard /></>} />
-        <Route path="/add" element={<><Registeration /><AddCar /></>} />
-        <Route path="/profile" element={<><Registeration /><Profile /></>} />
-        <Route path="/edit/:id" element={<><Registeration /><EditCar /></>} />
-        <Route path="/cars/:id" element={<><Registeration /><CarDetails /></>} />
+        <Route path="/admin" element={<AdminDashboard/>} />
+        <Route path="/add" element={ <AddCar />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/edit/:id" element={<EditCar />} />
+        <Route path="/cars/:id" element={<CarDetails />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>

@@ -1,8 +1,6 @@
 import { useState } from "react";
 
 const styles = `
-  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Barlow:wght@300;400;500&display=swap');
-
   .car-card {
     font-family: 'Barlow', sans-serif;
     background: #0d0d0f;
@@ -110,13 +108,13 @@ const styles = `
   .btn-delete:hover { background: rgba(220,60,60,0.1); border-color: rgba(220,60,60,0.5); color: rgb(220,60,60); }
 `;
 
-function CarCard({ car, isAdmin, onDelete, onEdit, onView }) {
+function CarCard({ car, isAdmin, onDelete, onEdit, onView = () => {} }) {
   const [imgIndex, setImgIndex] = useState(0);
   const images = car.images || [];
 
   const formatPrice = (p) => Number(p).toLocaleString("en-EG");
 
-  const prev = (e) => {
+  const prev   = (e) => {
     e.stopPropagation();
     setImgIndex(i => (i - 1 + images.length) % images.length);
   };
@@ -189,13 +187,14 @@ function CarCard({ car, isAdmin, onDelete, onEdit, onView }) {
             </div>
           </div>
 
-          <button className="btn-view" onClick={() => onView(car)}>View Car</button>
 
-          {isAdmin && (
+          {isAdmin ? (
             <div className="car-admin-actions">
               <button className="btn-edit" onClick={() => onEdit(car)}>Edit</button>
               <button className="btn-delete" onClick={() => onDelete(car._id)}>Delete</button>
             </div>
+          ) : (
+            <button className="btn-view" onClick={() => onView(car)}>View Car</button>
           )}
         </div>
       </div>

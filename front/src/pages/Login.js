@@ -51,7 +51,18 @@ export default function Login() {
         );
 
         if (data.status === 200) {
-          navigate('/');
+          try {
+            const userRes = await fetch('/api/user', { credentials: 'include' });
+            if (userRes.ok) {
+              const userData = await userRes.json();
+              if (userData.role === 'admin') navigate('/admin');
+              else navigate('/');
+            } else {
+              navigate('/');
+            }
+          } catch (err) {
+            navigate('/');
+          }
         } else {
           setStatus({
             error:

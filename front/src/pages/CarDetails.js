@@ -2,7 +2,6 @@ import { useEffect, useState, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 const styles = `
-  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=Barlow:wght@300;400;500&display=swap');
 
   * { box-sizing: border-box; }
 
@@ -246,7 +245,6 @@ function CarDetails() {
       alert('Error sending request');
     }
   };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     const fetchCar = async () => {
       const res = await fetch(`/api/cars/${id}`);

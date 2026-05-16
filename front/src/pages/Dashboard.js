@@ -3,7 +3,6 @@ import CarCard from "../components/CarCards";
 import { useNavigate } from "react-router-dom";
 
 const styles = `
-  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=Barlow:wght@300;400;500&display=swap');
 
   * { box-sizing: border-box; }
 

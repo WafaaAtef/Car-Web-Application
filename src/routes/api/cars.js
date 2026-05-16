@@ -4,7 +4,6 @@ const Car = require("../../models/Cars");
 const { auth, isAdmin } = require('../../middleWares/authMiddleware');
 const { upload } = require('../../middleWares/uploadMidd');
 
-// GET /api/cars
 router.get("/", async (req, res) => {
   try {
     const { search, sortBy, request } = req.query;
