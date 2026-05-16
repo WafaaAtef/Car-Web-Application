@@ -1,11 +1,11 @@
 {
   "info": {
-    "_postman_id": "102b4967-2d54-416e-b575-678320f40e42",
-    "name": "car-api",
-    "description": "car-api is a RESTful API for managing a car marketplace. It covers user authentication, profile management, and car listing operations. All protected routes require a valid JWT token passed via cookies.",
+    "_postman_id": "0a9493e9-ebdd-459d-91d6-0181fcc6d863",
+    "name": "Car Marketplace API",
+    "description": "Car Marketplace is a RESTful API for managing a car marketplace\n\nIt handles everything from user registration and authentication to car listings, profile management, and purchase requests — all secured with JWT tokens delivered via HTTP-only cookies.  \n  \nAuth — Register, login, and logout with cookie-based JWT sessions  \nProfile — View and update user info, change password, and upload a profile photo  \nCars — Browse, search, add, update, and delete car listings with image uploads  \nRequests — Submit and manage purchase requests between buyers and admins  \nFeedback — Leave and retrieve reviews for car listings  \n  \nAll protected routes require an authenticated session via the token cookie.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "54457665",
-    "_collection_link": "https://go.postman.co/collection/54457665-102b4967-2d54-416e-b575-678320f40e42?source=collection_link"
+    "_collection_link": "https://go.postman.co/collection/54457665-0a9493e9-ebdd-459d-91d6-0181fcc6d863?source=collection_link"
   },
   "item": [
     {
@@ -84,7 +84,7 @@
           },
           "status": "Created",
           "code": 201,
-          "_postman_previewlanguage": null,
+          "_postman_previewlanguage": "Text",
           "header": [
             {
               "key": "X-Powered-By",
@@ -211,7 +211,7 @@
           },
           "status": "OK",
           "code": 200,
-          "_postman_previewlanguage": null,
+          "_postman_previewlanguage": "Text",
           "header": [
             {
               "key": "X-Powered-By",
@@ -283,7 +283,7 @@
             "user"
           ]
         },
-        "description": "## GET /api/user\n\nRetrieves the authenticated user's profile information.\n\n---\n\n### Authentication\n\nRequires a valid JWT token stored in cookies (`token`). No request body needed.\n\n---\n\n### Responses\n\n**200 OK — Success**\n```json\n{\n  \"_id\": \"64f1a2b3c4d5e6f7a8b9c0d1\",\n  \"firstname\": \"Ahmed\",\n  \"lastname\": \"Khalil\",\n  \"username\": \"ahmedkhalil\",\n  \"email\": \"itskhalil@gmail.com\",\n  \"profileImage\": \"/uploads/profile_photo/image.jpg\"\n}\n```\n\n**401 Unauthorized**\n```json\n{\n  \"message\": \"Unauthorized\"\n}\n```"
+        "description": "## GET /api/user\n\nReturns the authenticated user's profile data.\n\n---\n\n### Authentication\n\nRequires a valid JWT token stored in cookies (`token`).\n\n---\n\n### Responses\n\n**200 OK — Success**\n\n```json\n{\n  \"_id\": \"64abc123def456\",\n  \"name\": \"Ahmed Khalil\",\n  \"email\": \"ahmed@example.com\",\n  \"profileImage\": \"profile.jpg\"\n}\n```\n\n**401 Unauthorized**\n\n```json\n{\n  \"message\": \"Unauthorized\"\n}\n```"
       },
       "response": [
         {
@@ -306,7 +306,7 @@
           },
           "status": "OK",
           "code": 200,
-          "_postman_previewlanguage": null,
+          "_postman_previewlanguage": "Text",
           "header": [
             {
               "key": "X-Powered-By",
@@ -415,7 +415,7 @@
           },
           "status": "OK",
           "code": 200,
-          "_postman_previewlanguage": null,
+          "_postman_previewlanguage": "Text",
           "header": [
             {
               "key": "X-Powered-By",
@@ -460,135 +460,6 @@
           ],
           "cookie": [],
           "body": "{\n    \"firstname\": \"ahmed\",\n    \"lastname\": \"khalil\",\n    \"username\": \"ahmedkhalil1\",\n    \"email\": \"itskhalil@gmail.com\",\n    \"phone\": \"+201023456789\"\n}"
-        }
-      ]
-    },
-    {
-      "name": "Delete Profile",
-      "request": {
-        "auth": {
-          "type": "noauth"
-        },
-        "method": "DELETE",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n    \"password\":\"Aa0123456789@\"\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "http://localhost:5000/api/user",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "5000",
-          "path": [
-            "api",
-            "user"
-          ],
-          "query": [
-            {
-              "key": "",
-              "value": null,
-              "type": "text",
-              "disabled": true
-            }
-          ]
-        },
-        "description": "## DELETE /api/user\n\nPermanently deletes the authenticated user's account.\n\n---\n\n### Authentication\n\nRequires a valid JWT token stored in cookies (`token`).\n\n---\n\n### Request Body (JSON)\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| password | string | Yes | Current password to confirm deletion |\n\n---\n\n### Responses\n\n**200 OK — Success**\n\n``` json\n{\n  \"message\": \"Account deleted successfully\"\n}\n\n ```\n\n**400 Bad Request — Wrong Password**\n\n``` json\n{\n  \"message\": \"Incorrect password\"\n}\n\n ```\n\n**401 Unauthorized**\n\n``` json\n{\n  \"message\": \"Unauthorized\"\n}\n\n ```"
-      },
-      "response": [
-        {
-          "name": "delete_profile",
-          "originalRequest": {
-            "method": "DELETE",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"password\":\"Aa0123456789@\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/user",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "5000",
-              "path": [
-                "api",
-                "user"
-              ],
-              "query": [
-                {
-                  "key": "",
-                  "value": null,
-                  "type": "text",
-                  "disabled": true
-                }
-              ]
-            }
-          },
-          "status": "OK",
-          "code": 200,
-          "_postman_previewlanguage": null,
-          "header": [
-            {
-              "key": "X-Powered-By",
-              "value": "Express"
-            },
-            {
-              "key": "Access-Control-Allow-Origin",
-              "value": "http://localhost:3000"
-            },
-            {
-              "key": "Vary",
-              "value": "Origin"
-            },
-            {
-              "key": "Access-Control-Allow-Credentials",
-              "value": "true"
-            },
-            {
-              "key": "Set-Cookie",
-              "value": "token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT"
-            },
-            {
-              "key": "Content-Type",
-              "value": "application/json; charset=utf-8"
-            },
-            {
-              "key": "Content-Length",
-              "value": "39"
-            },
-            {
-              "key": "ETag",
-              "value": "W/\"27-27o4zzUjhHNmthTJyia4gBCjpos\""
-            },
-            {
-              "key": "Date",
-              "value": "Fri, 15 May 2026 14:32:50 GMT"
-            },
-            {
-              "key": "Connection",
-              "value": "keep-alive"
-            },
-            {
-              "key": "Keep-Alive",
-              "value": "timeout=5"
-            }
-          ],
-          "cookie": [],
-          "body": "{\n    \"message\": \"User deleted successfully\"\n}"
         }
       ]
     },
@@ -655,7 +526,7 @@
           },
           "status": "Bad Request",
           "code": 400,
-          "_postman_previewlanguage": "",
+          "_postman_previewlanguage": "Text",
           "header": [
             {
               "key": "X-Powered-By",
@@ -737,7 +608,7 @@
           },
           "status": "Bad Request",
           "code": 400,
-          "_postman_previewlanguage": null,
+          "_postman_previewlanguage": "Text",
           "header": [
             {
               "key": "X-Powered-By",
@@ -813,7 +684,7 @@
           },
           "status": "OK",
           "code": 200,
-          "_postman_previewlanguage": null,
+          "_postman_previewlanguage": "Text",
           "header": [
             {
               "key": "X-Powered-By",
@@ -924,7 +795,7 @@
           },
           "status": "Bad Request",
           "code": 400,
-          "_postman_previewlanguage": null,
+          "_postman_previewlanguage": "Text",
           "header": [
             {
               "key": "X-Powered-By",
@@ -1000,7 +871,7 @@
           },
           "status": "Bad Request",
           "code": 400,
-          "_postman_previewlanguage": null,
+          "_postman_previewlanguage": "Text",
           "header": [
             {
               "key": "X-Powered-By",
@@ -1076,7 +947,7 @@
           },
           "status": "OK",
           "code": 200,
-          "_postman_previewlanguage": null,
+          "_postman_previewlanguage": "Text",
           "header": [
             {
               "key": "X-Powered-By",
@@ -1138,7 +1009,6 @@
             {
               "key": "image",
               "type": "file",
-              "uuid": "e4218b10-53be-4bf7-a46a-610811fef16b",
               "src": "postman-cloud:///1f150647-257b-4ba0-a4e5-a8009c65f292"
             }
           ]
@@ -1156,7 +1026,7 @@
             "profile-image"
           ]
         },
-        "description": "## POST /api/user/profile-image\n\nUploads and updates the authenticated user's profile photo.\n\n---\n\n### Authentication\n\nRequires a valid JWT token stored in cookies (`token`).\n\n---\n\n### Request Body (multipart/form-data)\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| image | file | Yes | Image file (jpg, png, etc.) |\n\n---\n\n### Responses\n\n**200 OK — Success**\n\n``` json\n{\n  \"message\": \"Profile image updated successfully\",\n  \"image\": \"/uploads/profile_photo/filename.jpg\"\n}\n\n ```\n\n**400 Bad Request — No File**\n\n``` json\n{\n  \"message\": \"No image uploaded\"\n}\n\n ```\n\n**401 Unauthorized**\n\n``` json\n{\n  \"message\": \"Unauthorized\"\n}\n\n ```"
+        "description": "## POST /api/user/profile-image\n\nUpdates the authenticated user's profile picture.\n\n---\n\n### Authentication\n\nRequires a valid JWT token stored in cookies (`token`).\n\n---\n\n### Request Body (multipart/form-data)\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| image | file | Yes | The image file to upload |"
       },
       "response": [
         {
@@ -1171,7 +1041,9 @@
                   "key": "image",
                   "type": "file",
                   "uuid": "e4218b10-53be-4bf7-a46a-610811fef16b",
-                  "src": "postman-cloud:///1f150647-257b-4ba0-a4e5-a8009c65f292"
+                  "src": [
+                    "postman-cloud:///1f150647-257b-4ba0-a4e5-a8009c65f292"
+                  ]
                 }
               ]
             },
@@ -1191,7 +1063,7 @@
           },
           "status": "OK",
           "code": 200,
-          "_postman_previewlanguage": null,
+          "_postman_previewlanguage": "Text",
           "header": [
             {
               "key": "X-Powered-By",
@@ -1240,6 +1112,135 @@
       ]
     },
     {
+      "name": "Delete Profile",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"password\":\"Aa0123456789@\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/user",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "user"
+          ],
+          "query": [
+            {
+              "key": "",
+              "value": null,
+              "type": "text",
+              "disabled": true
+            }
+          ]
+        },
+        "description": "## DELETE /api/user\n\nPermanently deletes the authenticated user's account.\n\n---\n\n### Authentication\n\nRequires a valid JWT token stored in cookies (`token`).\n\n---\n\n### Responses\n\n**200 OK — Success**\n\n```json\n{\n  \"message\": \"Account deleted successfully\"\n}\n```\n\n**401 Unauthorized**\n\n```json\n{\n  \"message\": \"Unauthorized\"\n}\n```"
+      },
+      "response": [
+        {
+          "name": "delete_profile",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"password\":\"Aa0123456789@\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/user",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "user"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "Text",
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "http://localhost:3000"
+            },
+            {
+              "key": "Vary",
+              "value": "Origin"
+            },
+            {
+              "key": "Access-Control-Allow-Credentials",
+              "value": "true"
+            },
+            {
+              "key": "Set-Cookie",
+              "value": "token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "39"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"27-27o4zzUjhHNmthTJyia4gBCjpos\""
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 14:32:50 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"message\": \"User deleted successfully\"\n}"
+        }
+      ]
+    },
+    {
       "name": "Get All Cars",
       "request": {
         "method": "GET",
@@ -1256,7 +1257,7 @@
             "cars"
           ]
         },
-        "description": "## GET /api/cars\n\nReturns a list of all available car listings. Public endpoint — no authentication required.\n\n---\n\n### Responses\n\n**200 OK — Success**\n```json\n[\n  {\n    \"_id\": \"69fe3ed3a47f07fe7e3e0ad7\",\n    \"name\": \"Mercedes C300\",\n    \"brand\": \"Mercedes\",\n    \"model\": \"C300\",\n    \"year\": 2023,\n    \"price\": 4000000,\n    \"location\": \"Cairo\",\n    \"status\": \"available\",\n    \"images\": [\"/uploads/car1.jpg\"]\n  }\n]\n```"
+        "description": "## GET /api/cars\n\nReturns a list of all available car listings.\n\n---\n\n### Responses\n\n**200 OK — Success**\n\n```json\n[\n  {\n    \"_id\": \"64abc123def456\",\n    \"brand\": \"Mercedes\",\n    \"model\": \"C300\",\n    \"year\": 2023,\n    \"price\": 4000000,\n    \"location\": \"Cairo\",\n    \"status\": \"available\",\n    \"images\": [\"image1.jpg\"]\n  }\n]\n```"
       },
       "response": [
         {
@@ -1279,7 +1280,7 @@
           },
           "status": "OK",
           "code": 200,
-          "_postman_previewlanguage": null,
+          "_postman_previewlanguage": "Text",
           "header": [
             {
               "key": "X-Powered-By",
@@ -1345,7 +1346,7 @@
             "69fe3ed3a47f07fe7e3e0ad7"
           ]
         },
-        "description": "## GET /api/cars/:id\n\nRetrieves the details of a specific car by its ID. Public endpoint — no authentication required.\n\n---\n\n### URL Parameters\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| id | string | Yes | The MongoDB ID of the car |\n\n---\n\n### Responses\n\n**200 OK — Success**\n\n``` json\n{\n  \"_id\": \"69fe3ed3a47f07fe7e3e0ad7\",\n  \"name\": \"Mercedes C300\",\n  \"brand\": \"Mercedes\",\n  \"model\": \"C300\",\n  \"year\": 2023,\n  \"price\": 4000000,\n  \"location\": \"Cairo\",\n  \"status\": \"available\",\n  \"images\": [\"/uploads/car1.jpg\"]\n}\n\n ```\n\n**404 Not Found**\n\n``` json\n{\n  \"message\": \"Car not found\"\n}\n\n ```"
+        "description": "## GET /api/cars/:id\n\nRetrieves a single car listing by its ID.\n\n---\n\n### URL Parameters\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| id | string | Yes | MongoDB ID of the car |\n\n---\n\n### Responses\n\n**200 OK — Success**\n\n```json\n{\n  \"_id\": \"64abc123def456\",\n  \"brand\": \"Mercedes\",\n  \"model\": \"C300\",\n  \"year\": 2023,\n  \"price\": 4000000,\n  \"location\": \"Cairo\",\n  \"status\": \"available\",\n  \"images\": [\"image1.jpg\"]\n}\n```\n\n**404 Not Found**\n\n```json\n{\n  \"message\": \"Car not found\"\n}\n```"
       },
       "response": [
         {
@@ -1369,7 +1370,7 @@
           },
           "status": "OK",
           "code": 200,
-          "_postman_previewlanguage": null,
+          "_postman_previewlanguage": "Text",
           "header": [
             {
               "key": "X-Powered-By",
@@ -1421,18 +1422,23 @@
       "name": "Add Car",
       "request": {
         "method": "POST",
-        "header": [
-          {
-            "key": "Authorization",
-            "value": "Bearer {{token}}"
-          }
-        ],
+        "header": [],
         "body": {
           "mode": "formdata",
           "formdata": [
             {
+              "key": "brand",
+              "value": "Mercedes",
+              "type": "text"
+            },
+            {
               "key": "model",
               "value": "C300",
+              "type": "text"
+            },
+            {
+              "key": "year",
+              "value": "2023",
               "type": "text"
             },
             {
@@ -1441,33 +1447,19 @@
               "type": "text"
             },
             {
-              "key": "brand",
-              "value": "Mercedes",
-              "type": "text",
-              "uuid": "2ec490dd-3954-45bf-9f21-54e747ce65bf"
-            },
-            {
-              "key": "year",
-              "value": "2023",
-              "type": "text",
-              "uuid": "a3224415-a6c5-4bb8-9c0b-4412e77cdaa3"
-            },
-            {
               "key": "location",
               "value": "Cairo",
-              "type": "text",
-              "uuid": "ccfe2582-8686-4354-9b3a-9d88799b52cd"
+              "type": "text"
+            },
+            {
+              "key": "status",
+              "value": "available",
+              "type": "text"
             },
             {
               "key": "images",
               "type": "file",
               "src": "postman-cloud:///1f15062e-19dd-4370-8daf-b8c15e6531ff"
-            },
-            {
-              "key": "status",
-              "value": "available",
-              "type": "text",
-              "uuid": "c987afe2-706e-48c0-be26-19d5dcc55d32"
             }
           ]
         },
@@ -1483,19 +1475,14 @@
             "cars"
           ]
         },
-        "description": "## POST /api/cars\n\nCreates a new car listing. Requires admin privileges.\n\n---\n\n### Authentication\n\nRequires a valid JWT token in the `Authorization` header as `Bearer {{token}}`.\n\n---\n\n### Request Body (multipart/form-data)\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| brand | string | Yes | Car brand (e.g. Mercedes) |\n| model | string | Yes | Car model (e.g. C300) |\n| year | number | Yes | Manufacturing year (e.g. 2023) |\n| price | number | Yes | Price in local currency (e.g. 4000000) |\n| location | string | No | City or location of the car (e.g. Cairo) |\n| status | string | Yes | Availability status: `available` or `sold` |\n| images | file | Yes | Up to 5 image files under the key `images` |\n\n---\n\n### Responses\n\n**201 Created — Success**\n\n``` json\n{\n  \"_id\": \"6a072216e85493d82b731d4d\",\n  \"brand\": \"Mercedes\",\n  \"model\": \"C300\",\n  \"year\": 2023,\n  \"price\": 4000000,\n  \"location\": \"Cairo\",\n  \"status\": \"available\",\n  \"images\": [\"/uploads/car1.jpg\"]\n}\n\n ```\n\n**400 Bad Request**\n\n``` json\n{\n  \"message\": \"Validation error message\"\n}\n\n ```\n\n**403 Forbidden — Not Admin**\n\n``` json\n{\n  \"message\": \"Access denied\"\n}\n\n ```"
+        "description": "## POST /api/cars\n\nCreates a new car listing. Requires admin privileges.\n\n---\n\n### Authentication\n\nRequires a valid JWT token stored in cookies (`token`).\n\n---\n\n### Request Body (multipart/form-data)\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| brand | string | Yes | Car brand (e.g. Mercedes) |\n| model | string | Yes | Car model (e.g. C300) |\n| year | number | Yes | Manufacturing year (e.g. 2023) |\n| price | number | Yes | Price in local currency (e.g. 4000000) |\n| location | string | No | City or location of the car (e.g. Cairo) |\n| status | string | Yes | Availability status: `available` or `sold` |\n| images | file | Yes | One or more image files |"
       },
       "response": [
         {
           "name": "add_car",
           "originalRequest": {
             "method": "POST",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}"
-              }
-            ],
+            "header": [],
             "body": {
               "mode": "formdata",
               "formdata": [
@@ -1536,7 +1523,9 @@
                 {
                   "key": "images",
                   "type": "file",
-                  "src": "postman-cloud:///1f15062e-19dd-4370-8daf-b8c15e6531ff"
+                  "src": [
+                    "postman-cloud:///1f15062e-19dd-4370-8daf-b8c15e6531ff"
+                  ]
                 },
                 {
                   "key": "status",
@@ -1561,7 +1550,7 @@
           },
           "status": "Created",
           "code": 201,
-          "_postman_previewlanguage": null,
+          "_postman_previewlanguage": "Text",
           "header": [
             {
               "key": "X-Powered-By",
@@ -1613,58 +1602,49 @@
       "name": "Update Car",
       "request": {
         "method": "PUT",
-        "header": [
-          {
-            "key": "Authorization",
-            "value": "Bearer {{token}}"
-          }
-        ],
+        "header": [],
         "body": {
           "mode": "formdata",
           "formdata": [
+            {
+              "key": "brand",
+              "value": "Mercedes",
+              "type": "text"
+            },
             {
               "key": "model",
               "value": "C300",
               "type": "text"
             },
             {
-              "key": "price",
-              "value": "2000000",
+              "key": "year",
+              "value": "2023",
               "type": "text"
             },
             {
-              "key": "brand",
-              "value": "Mercedes",
-              "type": "text",
-              "uuid": "2ec490dd-3954-45bf-9f21-54e747ce65bf"
-            },
-            {
-              "key": "year",
-              "value": "2023",
-              "type": "text",
-              "uuid": "a3224415-a6c5-4bb8-9c0b-4412e77cdaa3"
+              "key": "price",
+              "value": "400000",
+              "type": "text"
             },
             {
               "key": "location",
               "value": "Cairo",
-              "type": "text",
-              "uuid": "ccfe2582-8686-4354-9b3a-9d88799b52cd"
+              "type": "text"
+            },
+            {
+              "key": "status",
+              "value": "available",
+              "type": "text"
             },
             {
               "key": "images",
               "type": "file",
               "src": "postman-cloud:///1f15062e-19dd-4370-8daf-b8c15e6531ff"
-            },
-            {
-              "key": "status",
-              "value": "available",
-              "type": "text",
-              "uuid": "c987afe2-706e-48c0-be26-19d5dcc55d32"
             }
           ]
         },
         "url": {
-          "raw": "http://localhost:5000/api/cars/6a072216e85493d82b731d4d",
+          "raw": "http://localhost:5000/api/cars/6a07d62520fc75752fba43bc",
           "protocol": "http",
           "host": [
             "localhost"
@@ -1673,22 +1653,17 @@
           "path": [
             "api",
             "cars",
-            "6a072216e85493d82b731d4d"
+            "6a07d62520fc75752fba43bc"
           ]
         },
-        "description": "## PUT /api/cars/:id\n\nUpdates an existing car listing by its ID. Requires admin privileges.\n\n---\n\n### Authentication\n\nRequires a valid JWT token in the `Authorization` header as `Bearer {{token}}`.\n\n---\n\n### URL Parameters\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| id | string | Yes | The MongoDB ID of the car |\n\n---\n\n### Request Body (multipart/form-data)\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| brand | string | Yes | Car brand |\n| model | string | Yes | Car model |\n| year | number | Yes | Manufacturing year |\n| price | number | Yes | Price in local currency |\n| location | string | No | City or location |\n| status | string | Yes | `available` or `sold` |\n| images | file | Yes | Up to 5 replacement image files |\n\n---\n\n### Responses\n\n**200 OK — Success**\n\n``` json\n{\n  \"_id\": \"6a072216e85493d82b731d4d\",\n  \"brand\": \"Mercedes\",\n  \"model\": \"C300\",\n  \"year\": 2023,\n  \"price\": 2000000,\n  \"location\": \"Cairo\",\n  \"status\": \"available\",\n  \"images\": [\"/uploads/car1.jpg\"]\n}\n\n ```\n\n**404 Not Found**\n\n``` json\n{\n  \"message\": \"Car not found\"\n}\n\n ```\n\n**403 Forbidden — Not Admin**\n\n``` json\n{\n  \"message\": \"Access denied\"\n}\n\n ```"
+        "description": "## PUT /api/cars/:id\n\nUpdates an existing car listing by its ID. Requires admin privileges.\n\n---\n\n### Authentication\n\nRequires a valid JWT token stored in cookies (`token`).\nAdmin role required.\n\n---\n\n### URL Parameters\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| id | string | Yes | MongoDB ID of the car to update |\n\n---\n\n### Request Body (multipart/form-data)\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| brand | string | No | Car brand (e.g. Mercedes) |\n| model | string | No | Car model (e.g. C300) |\n| year | number | No | Manufacturing year (e.g. 2023) |\n| price | number | No | Price in local currency (e.g. 4000000) |\n| location | string | No | Location of the car |\n| status | string | No | Listing status: `available` or `sold` |\n| images | file | No | One or more image files |"
       },
       "response": [
         {
           "name": "update_car",
           "originalRequest": {
             "method": "PUT",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}"
-              }
-            ],
+            "header": [],
             "body": {
               "mode": "formdata",
               "formdata": [
@@ -1729,7 +1704,9 @@
                 {
                   "key": "images",
                   "type": "file",
-                  "src": "postman-cloud:///1f15062e-19dd-4370-8daf-b8c15e6531ff"
+                  "src": [
+                    "postman-cloud:///1f15062e-19dd-4370-8daf-b8c15e6531ff"
+                  ]
                 },
                 {
                   "key": "status",
@@ -1755,7 +1732,7 @@
           },
           "status": "OK",
           "code": 200,
-          "_postman_previewlanguage": null,
+          "_postman_previewlanguage": "Text",
           "header": [
             {
               "key": "X-Powered-By",
@@ -1807,14 +1784,9 @@
       "name": "Delete Car",
       "request": {
         "method": "DELETE",
-        "header": [
-          {
-            "key": "Authorization",
-            "value": "Bearer {{token}}"
-          }
-        ],
+        "header": [],
         "url": {
-          "raw": "http://localhost:5000/api/cars/6a072216e85493d82b731d4d",
+          "raw": "http://localhost:5000/api/cars/6a07d62520fc75752fba43bc",
           "protocol": "http",
           "host": [
             "localhost"
@@ -1823,22 +1795,17 @@
           "path": [
             "api",
             "cars",
-            "6a072216e85493d82b731d4d"
+            "6a07d62520fc75752fba43bc"
           ]
         },
-        "description": "## DELETE /api/cars/:id\n\nDeletes a car listing by its ID. Requires admin privileges.\n\n---\n\n### Authentication\n\nRequires a valid JWT token in the `Authorization` header as `Bearer {{token}}`.\n\n---\n\n### URL Parameters\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| id | string | Yes | The MongoDB ID of the car |\n\n---\n\n### Responses\n\n**200 OK — Success**\n\n``` json\n{\n  \"message\": \"Car deleted successfully\"\n}\n\n ```\n\n**404 Not Found**\n\n``` json\n{\n  \"message\": \"Car not found\"\n}\n\n ```\n\n**403 Forbidden — Not Admin**\n\n``` json\n{\n  \"message\": \"Access denied\"\n}\n\n ```"
+        "description": "## DELETE /api/cars/:id\n\nDeletes a car listing by its ID. Requires admin privileges.\n\n---\n\n### Authentication\n\nRequires a valid JWT token stored in cookies (`token`).\nAdmin role required.\n\n---\n\n### URL Parameters\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| id | string | Yes | MongoDB ID of the car to delete |\n\n---\n\n### Responses\n\n**200 OK — Success**\n\n```json\n{\n  \"message\": \"Car deleted successfully\"\n}\n```\n\n**401 Unauthorized**\n\n```json\n{\n  \"message\": \"Unauthorized\"\n}\n```\n\n**403 Forbidden**\n\n```json\n{\n  \"message\": \"Forbidden\"\n}\n```\n\n**404 Not Found**\n\n```json\n{\n  \"message\": \"Car not found\"\n}\n```"
       },
       "response": [
         {
           "name": "delete_car",
           "originalRequest": {
             "method": "DELETE",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}"
-              }
-            ],
+            "header": [],
             "url": {
               "raw": "http://localhost:5000/api/cars/6a072216e85493d82b731d4d",
               "protocol": "http",
@@ -1855,7 +1822,7 @@
           },
           "status": "OK",
           "code": 200,
-          "_postman_previewlanguage": null,
+          "_postman_previewlanguage": "Text",
           "header": [
             {
               "key": "X-Powered-By",
@@ -1900,6 +1867,509 @@
           ],
           "cookie": [],
           "body": "{\n    \"message\": \"Car deleted\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Get My Requests",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/requests/my",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "requests",
+            "my"
+          ]
+        },
+        "description": "## GET /api/requests/my\n\nRetrieves all rental requests submitted by the authenticated user.\n\n---\n\n### Authentication\n\nRequires a valid JWT token stored in cookies (`token`).\n\n---\n\n### Responses\n\n**200 OK — Success**\n\n``` json\n[\n  {\n    \"_id\": \"6a07c9b84940abd04b4fb8ab\",\n    \"carId\": \"69fe3ed3a47f07fe7e3e0ad7\",\n    \"price\": 25000,\n    \"status\": \"pending\",\n    \"createdAt\": \"2024-01-01T00:00:00.000Z\"\n  }\n]\n```\n\n**401 Unauthorized**\n\n``` json\n{\n  \"message\": \"Unauthorized\"\n}\n```"
+      },
+      "response": [
+        {
+          "name": "Get My requests",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/requests/my",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "requests",
+                "my"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "Text",
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "http://localhost:3000"
+            },
+            {
+              "key": "Vary",
+              "value": "Origin"
+            },
+            {
+              "key": "Access-Control-Allow-Credentials",
+              "value": "true"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "1096"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"448-mHZXA4qP5zoCf3j1SMjd3EaZG90\""
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 16 May 2026 01:29:31 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"requests\": [\n        {\n            \"_id\": \"6a07bcc9d0294f8d1a944644\",\n            \"car\": {\n                \"_id\": \"69fe3ed3a47f07fe7e3e0ad7\",\n                \"brand\": \"BMW\",\n                \"model\": \"M3 comptition\",\n                \"year\": 2022,\n                \"price\": 180000000,\n                \"fuelType\": \"petrol\",\n                \"transmission\": \"automatic\",\n                \"condition\": \"used\",\n                \"images\": [\n                    \"/uploads/car_1778269907789_444262391.jpeg\"\n                ],\n                \"status\": \"available\",\n                \"createdAt\": \"2026-05-08T19:51:47.806Z\",\n                \"updatedAt\": \"2026-05-16T01:03:48.705Z\",\n                \"__v\": 0,\n                \"stock\": 48\n            },\n            \"buyer\": \"6a072ef198c82216607e4326\",\n            \"price\": 180000000,\n            \"status\": \"confirmed\",\n            \"createdAt\": \"2026-05-16T00:39:37.858Z\",\n            \"updatedAt\": \"2026-05-16T00:40:19.945Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"6a07a2fd5fd8cdc954becafc\",\n            \"car\": {\n                \"_id\": \"69fe3f9ca47f07fe7e3e0ad8\",\n                \"brand\": \"range rover\",\n                \"model\": \"villar\",\n                \"year\": 2017,\n                \"price\": 1850000,\n                \"fuelType\": \"petrol\",\n                \"transmission\": \"automatic\",\n                \"condition\": \"used\",\n                \"images\": [\n                    \"/uploads/car_1778270108304_959809271.jpg\"\n                ],\n                \"status\": \"available\",\n                \"createdAt\": \"2026-05-08T19:55:08.306Z\",\n                \"updatedAt\": \"2026-05-16T00:40:24.974Z\",\n                \"__v\": 0,\n                \"stock\": 43\n            },\n            \"buyer\": \"6a072ef198c82216607e4326\",\n            \"price\": 1850000,\n            \"status\": \"cancelled\",\n            \"createdAt\": \"2026-05-15T22:49:33.985Z\",\n            \"updatedAt\": \"2026-05-16T00:40:31.874Z\",\n            \"__v\": 0\n        }\n    ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "Add Request",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"carId\": \"69fe3ed3a47f07fe7e3e0ad7\",\r\n  \"price\": 25000\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/requests",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "requests"
+          ]
+        },
+        "description": "## POST /api/requests\n\nCreates a new rental request for a specific car.\n\n---\n\n### Authentication\n\nRequires a valid JWT token stored in cookies (`token`).\n\n---\n\n### Request Body (JSON)\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| carId | string | Yes | The MongoDB ID of the car to request |\n| price | number | Yes | The offered price for the rental |\n\n---\n\n### Responses\n\n**201 Created — Success**\n\n``` json\n{\n  \"_id\": \"6a07c9b84940abd04b4fb8ab\",\n  \"carId\": \"69fe3ed3a47f07fe7e3e0ad7\",\n  \"price\": 25000,\n  \"status\": \"pending\",\n  \"createdAt\": \"2024-01-01T00:00:00.000Z\"\n}\n```\n\n**400 Bad Request — Validation Error**\n\n``` json\n{\n  \"message\": \"Validation error message\"\n}\n```\n\n**401 Unauthorized**\n\n``` json\n{\n  \"message\": \"Unauthorized\"\n}\n```"
+      },
+      "response": [
+        {
+          "name": "add request",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"carId\": \"69fe3ed3a47f07fe7e3e0ad7\",\r\n  \"price\": 25000\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/requests",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "requests"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": "Text",
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "http://localhost:3000"
+            },
+            {
+              "key": "Vary",
+              "value": "Origin"
+            },
+            {
+              "key": "Access-Control-Allow-Credentials",
+              "value": "true"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "274"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"112-KM74feSSZgNDVkTJwQxBqLwTdDQ\""
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 16 May 2026 01:34:48 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"message\": \"Request created successfully\",\n    \"request\": {\n        \"car\": \"69fe3ed3a47f07fe7e3e0ad7\",\n        \"buyer\": \"6a072ef198c82216607e4326\",\n        \"price\": 25000,\n        \"status\": \"pending\",\n        \"_id\": \"6a07c9b84940abd04b4fb8ab\",\n        \"createdAt\": \"2026-05-16T01:34:48.614Z\",\n        \"updatedAt\": \"2026-05-16T01:34:48.614Z\",\n        \"__v\": 0\n    }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Update Request Status",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"status\": \"completed\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/requests/6a07d5ca20fc75752fba43bb",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "requests",
+            "6a07d5ca20fc75752fba43bb"
+          ]
+        },
+        "description": "## PATCH /api/requests/:id\n\nUpdates the status of a rental request. Restricted to admin users only.\n\n---\n\n### Authentication\n\nRequires a valid JWT token stored in cookies (`token`). Admin role required.\n\n---\n\n### URL Parameters\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| id | string | Yes | The MongoDB ID of the request |\n\n---\n\n### Request Body (JSON)\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| status | string | Yes | New status value: `pending`, `confirmed`, `cancelled`, or `completed` |\n\n---\n\n### Responses\n\n**200 OK — Success**\n\n``` json\n{\n  \"message\": \"Request status updated successfully\"\n}\n```\n\n**403 Forbidden — Not Admin**\n\n``` json\n{\n  \"message\": \"Access denied\"\n}\n```\n\n**404 Not Found**\n\n``` json\n{\n  \"message\": \"Request not found\"\n}\n```"
+      },
+      "response": [
+        {
+          "name": "approve request or disapprove admin only",
+          "originalRequest": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"status\": \"completed\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/requests/6a07c9b84940abd04b4fb8ab",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "requests",
+                "6a07c9b84940abd04b4fb8ab"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "Text",
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "http://localhost:3000"
+            },
+            {
+              "key": "Vary",
+              "value": "Origin"
+            },
+            {
+              "key": "Access-Control-Allow-Credentials",
+              "value": "true"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "276"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"114-ynEGmmxpjogA6XmP8BtPiHbzr6Q\""
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 16 May 2026 01:38:34 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"message\": \"Request updated successfully\",\n    \"request\": {\n        \"_id\": \"6a07c9b84940abd04b4fb8ab\",\n        \"car\": \"69fe3ed3a47f07fe7e3e0ad7\",\n        \"buyer\": \"6a072ef198c82216607e4326\",\n        \"price\": 25000,\n        \"status\": \"completed\",\n        \"createdAt\": \"2026-05-16T01:34:48.614Z\",\n        \"updatedAt\": \"2026-05-16T01:38:34.151Z\",\n        \"__v\": 0\n    }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Get Car Feedback",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/feedback/69fe3ed3a47f07fe7e3e0ad7",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "feedback",
+            "69fe3ed3a47f07fe7e3e0ad7"
+          ]
+        },
+        "description": "## GET /api/feedback/:carId\n\nRetrieves all feedback entries for a specific car.\n\n---\n\n### URL Parameters\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| carId | string | Yes | The MongoDB ID of the car |\n\n---\n\n### Responses\n\n**200 OK — Success**\n\n``` json\n[\n  {\n    \"_id\": \"6a07c9b84940abd04b4fb8ab\",\n    \"carId\": \"69fe3ed3a47f07fe7e3e0ad7\",\n    \"name\": \"Ahmed Khalil\",\n    \"rating\": 5,\n    \"comment\": \"Excellent car and very clean.\",\n    \"createdAt\": \"2024-01-01T00:00:00.000Z\"\n  }\n]\n```\n\n**404 Not Found**\n\n``` json\n{\n  \"message\": \"Car not found\"\n}\n```"
+      },
+      "response": [
+        {
+          "name": "car feedback",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/feedback/69fe3ed3a47f07fe7e3e0ad7",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "feedback",
+                "69fe3ed3a47f07fe7e3e0ad7"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "Text",
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "http://localhost:3000"
+            },
+            {
+              "key": "Vary",
+              "value": "Origin"
+            },
+            {
+              "key": "Access-Control-Allow-Credentials",
+              "value": "true"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "642"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"282-F5z7MLyZA5lX+Vhzvj+ICdpHiwI\""
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 16 May 2026 01:46:50 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n    {\n        \"_id\": \"6a07672c15dfe837c1ed9bdc\",\n        \"car\": \"69fe3ed3a47f07fe7e3e0ad7\",\n        \"name\": \"Anonymous\",\n        \"rating\": 1,\n        \"comment\": \"very bad\",\n        \"date\": \"2026-05-15T18:34:20.188Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"6a07671a15dfe837c1ed9bdb\",\n        \"car\": \"69fe3ed3a47f07fe7e3e0ad7\",\n        \"name\": \"Anonymous\",\n        \"rating\": 2,\n        \"comment\": \"fvtbgvg bbgvf\",\n        \"date\": \"2026-05-15T18:34:02.656Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"6a07667615dfe837c1ed9bda\",\n        \"car\": \"69fe3ed3a47f07fe7e3e0ad7\",\n        \"name\": \"Anonymous\",\n        \"rating\": 5,\n        \"comment\": \"lol\",\n        \"date\": \"2026-05-15T18:31:18.518Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"6a07666a15dfe837c1ed9bd9\",\n        \"car\": \"69fe3ed3a47f07fe7e3e0ad7\",\n        \"name\": \"jury\",\n        \"rating\": 5,\n        \"comment\": \"tooo7faa\\n\",\n        \"date\": \"2026-05-15T18:31:06.707Z\",\n        \"__v\": 0\n    }\n]"
+        }
+      ]
+    },
+    {
+      "name": "Add Car Feedback",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"carId\": \"69fe3ed3a47f07fe7e3e0ad7\",\r\n  \"name\": \"Ahmed Khalil\",\r\n  \"rating\": 5,\r\n  \"comment\": \"Excellent car and very clean.\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/feedback",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "feedback"
+          ]
+        },
+        "description": "## POST /api/feedback\n\nSubmits a new feedback entry for a specific car.\n\n---\n\n### Request Body (JSON)\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| carId | string | Yes | The MongoDB ID of the car |\n| name | string | Yes | Name of the reviewer |\n| rating | number | Yes | Rating from 1 to 5 |\n| comment | string | No | Optional review comment |\n\n---\n\n### Responses\n\n**201 Created — Success**\n\n``` json\n{\n  \"_id\": \"6a07c9b84940abd04b4fb8ab\",\n  \"carId\": \"69fe3ed3a47f07fe7e3e0ad7\",\n  \"name\": \"Ahmed Khalil\",\n  \"rating\": 5,\n  \"comment\": \"Excellent car and very clean.\",\n  \"createdAt\": \"2024-01-01T00:00:00.000Z\"\n}\n```\n\n**400 Bad Request — Validation Error**\n\n``` json\n{\n  \"message\": \"Validation error message\"\n}\n```"
+      },
+      "response": [
+        {
+          "name": "add car feedback",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"carId\": \"69fe3ed3a47f07fe7e3e0ad7\",\r\n  \"name\": \"Ahmed Khalil\",\r\n  \"rating\": 5,\r\n  \"comment\": \"Excellent car and very clean.\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/feedback",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "feedback"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": "Text",
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "http://localhost:3000"
+            },
+            {
+              "key": "Vary",
+              "value": "Origin"
+            },
+            {
+              "key": "Access-Control-Allow-Credentials",
+              "value": "true"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "184"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"b8-NU4uNcRsBgP8lJ/1gAN/xzltCgg\""
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 16 May 2026 01:49:01 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"car\": \"69fe3ed3a47f07fe7e3e0ad7\",\n    \"name\": \"Ahmed Khalil\",\n    \"rating\": 5,\n    \"comment\": \"Excellent car and very clean.\",\n    \"_id\": \"6a07cd0d4255618786e00909\",\n    \"date\": \"2026-05-16T01:49:01.372Z\",\n    \"__v\": 0\n}"
         }
       ]
     }

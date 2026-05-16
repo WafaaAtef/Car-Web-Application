@@ -6,10 +6,8 @@ const fs = require("fs");
 const path = require("path");
 
 const get_user = async (req, res) => {
-        const token = req.cookies.token;
 
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        const user_id = decoded.id;
+        const user_id = req.user.id;
         const user = await User.findById(user_id).select('-password').lean();
         const requests = await Request.find({ buyer: user_id }).populate('car');
 
@@ -17,10 +15,8 @@ const get_user = async (req, res) => {
 };
 
 const delete_user = async (req, res) => {
-        const token = req.cookies.token;
 
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        const user_id = decoded.id;
+        const user_id = req.user.id;
         const { password } = req.body;
         if (!password) {
                 return res.status(400).json({ message: "Password is required" });
@@ -46,13 +42,12 @@ const delete_user = async (req, res) => {
 };
 
 const update_email = async (req, res) => {
-        const token = req.cookies.token;
+
         const { password, email } = req.body;
         if (!password || !email) {
                 return res.status(400).json({ message: "Password and email are required" });
         }
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        const user_id = decoded.id;
+        const user_id = req.user.id;
         const user = await User.findById(user_id);
         const r = await bcrypt.compare(password, user.password);
         if (!r) {
@@ -68,7 +63,7 @@ const update_email = async (req, res) => {
 };
 
 const update_password = async (req, res) => {
-        const token = req.cookies.token;
+
 
         const { old_password, new_password, confirm_password } = req.body;
 
@@ -77,9 +72,7 @@ const update_password = async (req, res) => {
         }
 
 
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-        const user_id = decoded.id;
+        const user_id = req.user.id;
 
         const user = await User.findById(user_id);
 
@@ -111,13 +104,12 @@ const update_password = async (req, res) => {
 };
 
 const update_user = async (req, res) => {
-        const token = req.cookies.token;
+
         const { firstname, lastname, phone } = req.body;
         if (!firstname || !lastname) {
                 return res.status(400).json({ message: "Firstname and lastname are required" });
         }
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        const user_id = decoded.id;
+        const user_id = req.user.id;
         const user = await User.findById(user_id);
         user.firstname = firstname || user.firstname;
         user.lastname = lastname || user.lastname;
@@ -128,9 +120,7 @@ const update_user = async (req, res) => {
 };
 const update_profile_image = async (req, res) => {
 
-        const token = req.cookies.token;
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        const user_id = decoded.id;
+        const user_id = req.user.id;
 
         const user = await User.findById(user_id);
 
