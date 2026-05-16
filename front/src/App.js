@@ -11,20 +11,18 @@ import SignUp from './pages/SignUp';
 import Registeration from "./components/Registeration";
 function App() {
   return (
-     <>
-     <Registeration/>
+    <>
       <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/add" element={<AddCar />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/edit/:id" element={<EditCar />} />
-        <Route path="/cars/:id" element={<CarDetails />} />
+        <Route path="/" element={<><Registeration /><Dashboard /></>} />
+        <Route path="/admin" element={<><Registeration /><AdminDashboard /></>} />
+        <Route path="/add" element={<><Registeration /><AddCar /></>} />
+        <Route path="/profile" element={<><Registeration /><Profile /></>} />
+        <Route path="/edit/:id" element={<><Registeration /><EditCar /></>} />
+        <Route path="/cars/:id" element={<><Registeration /><CarDetails /></>} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>
-      </>
+    </>
   );
 }
-
 export default App;
