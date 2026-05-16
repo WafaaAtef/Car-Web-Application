@@ -19,8 +19,8 @@ A full-stack web platform that connects car buyers with an admin-managed vehicle
 
 | Layer | Technology |
 |-------|-----------|
-| Frontend | React 18, React Router v7 |
-| Backend | Node.js, Express.js 5 |
+| Frontend | React , React Router  |
+| Backend | Node.js, Express.js  |
 | Database | MongoDB + Mongoose |
 | Auth | JWT + bcrypt |
 | File Uploads | Multer |
@@ -62,23 +62,13 @@ git clone https://github.com/WafaaAtef/Car-Web-Application.git
 cd Car-Web-Application
 ```
 
-### 2. Configure environment variables
-
-Create a `.env` file in the root of the project:
-
-```env
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_secret_key
-PORT=5000
-```
-
-### 3. Install backend dependencies
+### 2. Install backend dependencies
 
 ```bash
 npm install
 ```
 
-### 4. Start the backend server
+### 3. Start the backend server
 
 ```bash
 # Development (with auto-reload)
@@ -90,7 +80,7 @@ npm start
 
 The API will be available at `http://localhost:5000`.
 
-### 5. Install and start the frontend
+### 4. Install and start the frontend
 
 ```bash
 cd front
@@ -149,8 +139,4 @@ Full API documentation with request/response examples is available in the includ
 4. Push to your branch: `git push origin feature/your-feature`
 5. Open a pull request
 
----
 
-## License
-
-ISC
