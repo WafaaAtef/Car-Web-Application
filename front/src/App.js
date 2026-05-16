@@ -6,12 +6,13 @@ import EditCar from "./pages/EditCar";
 import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
 import CarDetails from "./pages/CarDetails";
-import Resgistration from "./components/Registeration";
-
+import Login from './pages/Login';
+import SignUp from './pages/SignUp';
+import Registeration from "./components/Registeration";
 function App() {
   return (
      <>
-      <Resgistration />
+     <Registeration/>
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/admin" element={<AdminDashboard />} />
