@@ -99,7 +99,7 @@ const styles =
   }
   .section-label::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.05); }
 
-  .cars-grid { display: flex; flex-wrap: wrap; gap: 16px; }
+  .cars-grid { display: flex; flex-wrap: wrap; gap: 5px; }
 
   .empty-state { text-align: center; padding: 80px 0; width: 100%; }
   .empty-text { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.2); }
