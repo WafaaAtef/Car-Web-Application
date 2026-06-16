@@ -142,6 +142,7 @@ function AdminDashboard() {
       }
     };
     checkAuth();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchCars = useCallback(async () => {
@@ -157,11 +158,12 @@ function AdminDashboard() {
     setRequests(data.requests || []);
   }, []);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (!authChecked) return;
     fetchCars();
     fetchRequests();
-  }, [authChecked]);
+  }, [authChecked, fetchCars, fetchRequests]);
 
   const handleDelete = async (id) => {
     if (!window.confirm("Remove this vehicle from the showroom?")) return;

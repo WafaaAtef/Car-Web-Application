@@ -113,6 +113,7 @@ function AddCar() {
     }
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { fetchUser(); }, []);
 
   const handleChange = (e) => setCar({ ...car, [e.target.name]: e.target.value });
