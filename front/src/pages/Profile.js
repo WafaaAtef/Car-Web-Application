@@ -590,8 +590,8 @@ function Profile() {
     const imageSrc =
         preview ||
         (profileImage
-            ? `http://localhost:5000${profileImage}`
-            : "http://localhost:5000/uploads/profile_photo/images.png");
+            ? profileImage
+            : "/uploads/profile_photo/images.png");
 
     return (
         <>

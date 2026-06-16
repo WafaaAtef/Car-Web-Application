@@ -283,7 +283,7 @@ function CarDetails() {
             <div className="car-main-image">
               {images.length > 0 && (
                 <img
-                  src={`http://localhost:5000${images[currentImage]}`}
+                  src={images[currentImage]}
                   alt={`${car.brand} ${car.model}`}
                 />
               )}
@@ -296,7 +296,7 @@ function CarDetails() {
                   onClick={() => setCurrentImage(i)}
                 >
                   <img
-                    src={`http://localhost:5000${img}`}
+                    src={img}
                     alt={`${car.brand} ${car.model} ${i + 1}`}
                   />
                 </div>

@@ -132,7 +132,7 @@ function CarCard({ car, isAdmin, onDelete, onEdit, onView = () => {} }) {
           {images.length > 0 ? (
             <>
               <img
-                src={`http://localhost:5000${images[imgIndex]}`}
+                src={images[imgIndex]}
                 alt={`${car.brand} ${car.model}`}
               />
               {images.length > 1 && (

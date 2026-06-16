@@ -70,7 +70,7 @@ const Registration = () => {
                     {/* --- ADDED CAR IMAGE ELEMENT HERE --- */}
                     {item.car?.images && item.car.images.length > 0 ? (
                       <img
-                        src={`http://localhost:5000${item.car.images[0]}`}
+                        src={item.car.images[0]}
                         alt={`${item.car?.brand} ${item.car?.model}`}
                         style={styles.image}
                       />
