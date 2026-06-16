@@ -259,6 +259,14 @@ const styles = `
     border-radius: 2px;
     margin-bottom: 16px;
   }
+  @media (max-width: 760px) {
+    .editcar-header { flex-direction: column; align-items: flex-start; padding: 24px 18px; }
+    .editcar-body { padding: 32px 16px; }
+    .editcar-card { max-width: 100%; }
+    .field-group { grid-template-columns: 1fr; }
+    .form-actions { flex-direction: column; }
+    .btn-cancel, .btn-submit { width: 100%; }
+  }
 `;
 
 function EditCar() {

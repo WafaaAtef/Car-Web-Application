@@ -250,7 +250,21 @@ const styles = `
   .empty-icon {
     font-size: 48px;
     opacity: 0.15;
-    margin-bottom: 16px;
+  }
+  @media (max-width: 980px) {
+    .dash-header { flex-direction: column; align-items: stretch; gap: 18px; padding: 28px 24px 20px; }
+    .dash-controls { width: 100%; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
+    .dash-search { width: 100%; min-width: auto; }
+    .custom-dropdown { width: 100%; max-width: 320px; }
+    .cars-grid { gap: 12px; }
+  }
+  @media (max-width: 680px) {
+    .dash-title { font-size: 32px; }
+    .dash-body { padding: 24px 16px; }
+    .dash-stats { display: grid; grid-template-columns: 1fr; gap: 12px; }
+    .stat-block { padding: 18px 20px; }
+    .dash-header { padding: 22px 16px 16px; }
+  }
   }
   .empty-text {
     font-family: 'Barlow Condensed', sans-serif;

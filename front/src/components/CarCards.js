@@ -106,6 +106,19 @@ const styles = `
     padding: 9px 0; border-radius: 2px; cursor: pointer; transition: all 0.2s;
   }
   .btn-delete:hover { background: rgba(220,60,60,0.1); border-color: rgba(220,60,60,0.5); color: rgb(220,60,60); }
+
+  /* Responsive tweaks */
+  @media (max-width: 980px) {
+    .car-card { width: 100%; max-width: 520px; }
+    .car-image-area { height: 220px; }
+  }
+  @media (max-width: 680px) {
+    .car-card { width: 100%; max-width: 100%; }
+    .car-image-area { height: 180px; }
+    .car-admin-actions { flex-direction: column; }
+    .car-admin-actions .btn-edit, .car-admin-actions .btn-delete { width: 100%; }
+    .btn-view { margin-top: 12px; }
+  }
 `;
 
 function CarCard({ car, isAdmin, onDelete, onEdit, onView = () => {} }) {

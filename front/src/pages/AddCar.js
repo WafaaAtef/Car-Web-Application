@@ -88,6 +88,14 @@ const styles =
     border: 1px solid rgba(220,60,60,0.2); color: rgba(220,60,60,0.9); font-size: 12px;
     padding: 12px 16px; border-radius: 2px;
   }
+  @media (max-width: 760px) {
+    .addcar-header { flex-direction: column; align-items: flex-start; padding: 24px 18px; }
+    .addcar-body { padding: 32px 16px; }
+    .addcar-card { max-width: 100%; }
+    .field-group { grid-template-columns: 1fr; }
+    .form-actions { flex-direction: column; }
+    .btn-cancel, .btn-submit { width: 100%; }
+  }
 `;
 
 function AddCar() {

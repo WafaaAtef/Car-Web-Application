@@ -92,8 +92,25 @@ export default function SignUp() {
   });
 
   return (
-    <div style={styles.page}>
-      <div style={styles.left}>
+    <div className="auth-page" style={styles.page}>
+      <style>{`
+        .auth-left, .auth-right { width: 50%; }
+        .auth-right { border-left: 1px solid rgba(201,168,76,0.1); position: sticky; top: 0; height: 100vh; }
+        .auth-page h1 { font-size: 52px; }
+        @media (max-width: 900px) {
+          .auth-page { flex-direction: column !important; }
+          .auth-left, .auth-right { width: 100% !important; padding: 32px 20px !important; }
+          .auth-right { position: static !important; height: auto !important; border-left: none !important; }
+          .auth-page h1 { font-size: 40px !important; }
+          .auth-page .quote { font-size: 28px !important; margin-bottom: 30px !important; }
+          .auth-page .stats-image { max-width: 100% !important; }
+        }
+        @media (max-width: 560px) {
+          .auth-left, .auth-right { padding: 24px 16px !important; }
+          .auth-page .quote { font-size: 24px !important; }
+        }
+      `}</style>
+      <div className="auth-left" style={styles.left}>
         <div style={styles.badge}>New Member</div>
 
         <h1 style={styles.title}>
@@ -108,7 +125,7 @@ export default function SignUp() {
 
         <form onSubmit={formik.handleSubmit}>
           <div style={styles.row}>
-            <div style={styles.formGroup}>
+          <div className="auth-right" style={styles.right}>
               <label style={styles.label}>First Name</label>
 
               <input
@@ -280,7 +297,7 @@ export default function SignUp() {
         </p>
       </div>
 
-      <div style={styles.right}>
+      <div className="auth-right" style={styles.right}>
         <div style={styles.quote}>
           Your journey
           <br />

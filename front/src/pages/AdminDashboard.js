@@ -121,6 +121,16 @@ const styles =
   .req-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
   .btn-approve { flex: 1; padding: 10px 12px; background: #6fcf97; border: none; color: #080809; border-radius: 2px; cursor: pointer; font-weight: 700; }
   .btn-reject  { flex: 1; padding: 10px 12px; background: #eb5757; border: none; color: #fff;    border-radius: 2px; cursor: pointer; font-weight: 700; }
+  @media (max-width: 1100px) {
+    .admin-stats { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .admin-header { flex-direction: column; align-items: stretch; gap: 18px; padding: 24px 18px; }
+    .yass { width: 100%; justify-content: flex-start; flex-wrap: wrap; gap: 12px; }
+    .btn-add { width: 100%; justify-content: center; }
+    .admin-body { padding: 24px 16px; }
+    .cars-grid { gap: 12px; }
+  }
 `;
 
 function AdminDashboard() {

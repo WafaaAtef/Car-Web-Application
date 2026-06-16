@@ -80,29 +80,37 @@ export default function Login() {
   });
 
   return (
-    <div style={styles.page}>
-      <div style={styles.left}>
-        <div style={styles.badge}>
-          Member Access
-        </div>
+    <div className="auth-page" style={styles.page}>
+      <style>{`
+        .auth-left, .auth-right { width: 50%; }
+        .auth-right { border-left: 1px solid rgba(201,168,76,0.1); position: sticky; top: 0; height: 100vh; }
+        .auth-page h1 { font-size: 52px; }
+        @media (max-width: 900px) {
+          .auth-left, .auth-right { width: 100% !important; padding: 32px 20px !important; }
+          .auth-right { position: static !important; height: auto !important; border-left: none !important; }
+          .auth-page { flex-direction: column !important; }
+          .auth-page h1 { font-size: 40px !important; }
+          .auth-page .quote { font-size: 28px !important; margin-bottom: 30px !important; }
+          .auth-page .stats-image { max-width: 100% !important; }
+        }
+        @media (max-width: 560px) {
+          .auth-left, .auth-right { padding: 24px 16px !important; }
+          .auth-page .quote { font-size: 24px !important; }
+        }
+      `}</style>
 
+      <div className="auth-left" style={styles.left}>
+        <div style={styles.badge}>Member Access</div>
         <h1 style={styles.title}>
           Welcome
           <br />
           Back.
         </h1>
-
-        <p style={styles.sub}>
-          Enter your credentials to access your
-          account
-        </p>
+        <p style={styles.sub}>Enter your credentials to access your account</p>
 
         <form onSubmit={formik.handleSubmit}>
           <div style={styles.formGroup}>
-            <label style={styles.label}>
-              Email Address
-            </label>
-
+            <label style={styles.label}>Email Address</label>
             <input
               name="email"
               type="email"
@@ -111,19 +119,13 @@ export default function Login() {
               value={formik.values.email}
               onChange={formik.handleChange}
             />
-
             {formik.errors.email && (
-              <div style={styles.fieldError}>
-                {formik.errors.email}
-              </div>
+              <div style={styles.fieldError}>{formik.errors.email}</div>
             )}
           </div>
 
           <div style={styles.formGroup}>
-            <label style={styles.label}>
-              Password
-            </label>
-
+            <label style={styles.label}>Password</label>
             <input
               name="password"
               type="password"
@@ -132,79 +134,42 @@ export default function Login() {
               value={formik.values.password}
               onChange={formik.handleChange}
             />
-
             {formik.errors.password && (
-              <div style={styles.fieldError}>
-                {formik.errors.password}
-              </div>
+              <div style={styles.fieldError}>{formik.errors.password}</div>
             )}
           </div>
 
           <div style={styles.formMeta}>
             <label style={styles.check}>
-              <input
-                type="checkbox"
-                style={{
-                  accentColor: '#C9A84C'
-                }}
-              />
-              &nbsp; Remember for 30 days
+              <input type="checkbox" style={{ accentColor: '#C9A84C' }} />&nbsp; Remember for 30 days
             </label>
           </div>
 
-          {formik.status?.error && (
-            <div style={styles.error}>
-              {formik.status.error}
-            </div>
-          )}
+          {formik.status?.error && <div style={styles.error}>{formik.status.error}</div>}
 
-          <button
-            type="submit"
-            style={styles.btn}
-            disabled={formik.isSubmitting}
-          >
-            {formik.isSubmitting
-              ? 'Signing in...'
-              : 'Login'}
+          <button type="submit" style={styles.btn} disabled={formik.isSubmitting}>
+            {formik.isSubmitting ? 'Signing in...' : 'Login'}
           </button>
         </form>
 
-        <div style={styles.divider}>
-          <span>or</span>
-        </div>
-
+        <div style={styles.divider}><span>or</span></div>
         <p style={styles.switch}>
           Don't have an account?{' '}
-          <Link
-            to="/signup"
-            style={styles.link}
-          >
-            Sign Up
-          </Link>
+          <Link to="/signup" style={styles.link}>Sign Up</Link>
         </p>
       </div>
 
-      <div style={styles.right}>
+      <div className="auth-right" style={styles.right}>
         <div style={styles.quote}>
           Drive what
           <br />
-          <span
-            style={{
-              color: 'rgba(201,168,76,0.6)'
-            }}
-          >
-            others only
-          </span>
+          <span style={{ color: 'rgba(201,168,76,0.6)' }}>others only</span>
           <br />
           dream of.
         </div>
-<div style={styles.imageBox}>
-<img
-  src="/allCars.jpg"
-  alt="all cars"
-  style={styles.statsImage}
-/>
-</div>
+        <div style={styles.imageBox}>
+          <img className="stats-image" src="/allCars.jpg" alt="all cars" style={styles.statsImage} />
+        </div>
       </div>
     </div>
   );

@@ -169,6 +169,36 @@ const styles = `
   .btn-request:hover {
     background: #e8d4a0;
   }
+  .btn-view {
+    background: #c4a460;
+    border: none;
+    color: #080809;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 12px 24px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.2s;
+    align-self: flex-start;
+    margin-top: 10px;
+  }
+  .btn-view:hover { background: #e8d4a0; }
+  @media (max-width: 980px) {
+    .car-details { padding: 24px 20px; }
+    .car-details-content { grid-template-columns: 1fr; gap: 24px; }
+    .car-main-image { height: 280px; }
+    .car-thumbnails { justify-content: flex-start; flex-wrap: wrap; }
+    .car-thumbnail { width: calc(25% - 6px); }
+  }
+  @media (max-width: 620px) {
+    .car-details-title { font-size: 32px; }
+    .car-specs { grid-template-columns: 1fr; }
+    .btn-request { width: 100%; }
+    .btn-view { width: 100%; }
+  }
 `;
 
 function CarDetails() {
@@ -338,7 +368,6 @@ function CarDetails() {
             <button
               className="btn-view"
               onClick={() => setIsFeedbackOpen(true)}
-              style={{ marginTop: '10px' ,background:'#c4a460',width:'500px', padding: '10px',fontSize:'18px'}}
             >
               Rate this Car
             </button>
