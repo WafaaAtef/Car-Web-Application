@@ -239,7 +239,7 @@ const styles = `
   .cars-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 5px;
   }
 
   .empty-state {
