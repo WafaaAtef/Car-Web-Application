@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 
 const registerUser = async (data) => {
-  const res = await fetch('http://localhost:3000/api/auth/register', {
+  const res = await fetch('/api/auth/register', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
