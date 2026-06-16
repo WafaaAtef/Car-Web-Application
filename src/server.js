@@ -18,8 +18,13 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use("/uploads", express.static("uploads"));
+
+// Serve static files from React build
+const buildPath = path.join(__dirname, '../front/build');
+app.use(express.static(buildPath));
+
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: ['http://localhost:3000', 'http://localhost:5000'],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
@@ -36,8 +41,28 @@ app.use('/api/requests', requestRoutes);
 
 app.use('/api/feedback', feedbackRoutes);
 
-app.use((req, res) => {
-  res.status(404).json({ message: 'Page not found' });
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.status(200).json({ message: 'Server is running' });
+});
+
+// Serve React app for all non-API routes (SPA fallback)
+app.use((req, res, next) => {
+  // If request is for API, skip this middleware
+  if (req.path.startsWith('/api/')) {
+    return next();
+  }
+  // Serve React index.html for all other routes
+  res.sendFile(path.join(buildPath, 'index.html'), (err) => {
+    if (err) {
+      res.status(404).json({ message: 'Not found' });
+    }
+  });
+});
+
+app.use((err, req, res, next) => {
+  console.error('Error:', err);
+  res.status(500).json({ message: 'Internal server error' });
 });
 
 

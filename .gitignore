@@ -1,1 +1,10 @@
 node_modules/
+front/build/
+front/node_modules/
+.env
+.env.local
+.env.*.local
+logs/
+*.log
+.DS_Store
+.vscode/
